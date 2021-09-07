@@ -1,7 +1,7 @@
 {
-  "name": "template-react",
+  "name": "cloud-mover",
   "version": "0.0.1",
-  "description": "Template for react project",
+  "description": "Social Media App - Cloud-Mover",
   "main": "index.js",
   "babel": {
     "presets": [
@@ -17,16 +17,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/estand25/template-react-frontend.git"
+    "url": "git+https://github.com/estand25/cloud-mover.git"
   },
   "keywords": [],
   "author": "Standley Eugene",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/estand25/template-react-frontend/issues"
+    "url": "https://github.com/estand25/cloud-mover/issues"
   },
-  "homepage": "https://github.com/estand25/template-react-frontend#readme",
+  "homepage": "https://github.com/estand25/cloud-mover#readme",
   "dependencies": {
+    "firebase": "^9.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
