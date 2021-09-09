@@ -1,65 +1,39 @@
-import React, {useState} from 'react'
+import React from 'react'
 
-import { useAuth, useFirestore } from "reactfire";
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { doc, getDoc } from 'firebase/firestore'
-import { useHistory } from 'react-router-dom'
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-const LogInUser = () => {
-    const auth = useAuth()
-    const firestore = useFirestore()
-    const history = useHistory()
-    
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+import {PasswordTextField} from '.'
 
-    const logIn = () => {
-        try {
-            signInWithEmailAndPassword(auth, email, password)
-            .then(data => {
-                const userRef = doc(firestore, 'users', data.user.uid)
-
-                getDoc(userRef)
-                    .then(result => {
-                        console.log('getDoc', result.data())
-                    })
-                    .catch(error =>  {
-                        console.log('get err', error)
-                    })
-
-                history.push('/profile')
-            })
-            .catch(error => {
-                console.error(error, 'error')
-                // return error
-            });
-        } catch (error) {
-            console.error(error, 'err')
-        }
-    }
-
+const LogInUser = ({classes, value, onChange, onChangeShowPassword, onChangeMouseShowPassword, onLogIn}) => {
     return (
-        <div>
+        <form className={classes.root}>
             <div>
-                <input
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="E-mail Address"
+                <TextField
+                    id="outlined-email"
+                    label="Email"
+                    value={value.email}
+                    variant="outlined"
+                    onChange={(e) => onChange(e.target.value, 'email')}
                 />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                />
-                <button
-                    onClick={logIn}
-                >
-                    Log-In
-                </button>
             </div>
-        </div>
+            <div>
+                <PasswordTextField
+                    label={'Password'}
+                    value={value.password}
+                    showPassword={value.showPassword}
+                    onChange={(e) => onChange(e.target.value, 'password')}
+                    onChangeShowPassword={onChangeShowPassword}
+                    onChangeMouseShowPassword={onChangeMouseShowPassword}
+                />
+            </div>
+            <Button
+                onClick={onLogIn}
+                variant="outlined"
+            >
+                Log-In
+            </Button>
+        </form>
     )
 }
 

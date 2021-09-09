@@ -9,11 +9,12 @@ import {
     Profile,
     LogInUser,
     LogOutUser,
-    Registion
+    SignUp
 } from '../components/account'
 
 import {
-    FrontPage
+    FrontPage,
+    LogIn
 } from '../pages'
 
 import { getAuth } from 'firebase/auth';
@@ -51,8 +52,8 @@ export const App = () =>  {
                             <Switch>
                                 <Route path="/" exact component={FrontPage} />
                                 <Route path="/profile" exact component={Profile} />
-                                <Route path="/registion" exact component={Registion} />
-                                <Route path="/logIn" exact component={LogInUser} />
+                                <Route path="/signUp" exact component={SignUp} />
+                                <Route path="/logIn" exact component={LogIn} />
                                 <Route path="/logOut" exact component={LogOutUser} />
                             </Switch>
                         </Router>
