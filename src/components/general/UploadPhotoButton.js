@@ -1,5 +1,5 @@
 import React from "react"
-import { Input, Fab } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import AddIcon from "@material-ui/icons/Add";
 import OutlinedInput from '@material-ui/core/OutlinedInput';
