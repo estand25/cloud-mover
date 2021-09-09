@@ -7,7 +7,7 @@ import {
 
 import {
     Profile,
-    SignUp
+    SignUpUser
 } from '../components/account'
 
 import {
@@ -51,7 +51,7 @@ export const App = () =>  {
                             <Switch>
                                 <Route path="/" exact component={FrontPage} />
                                 <Route path="/profile" exact component={Profile} />
-                                <Route path="/signUp" exact component={SignUp} />
+                                <Route path="/signUp" exact component={SignUpUser} />
                                 <Route path="/logIn" exact component={LogIn} />
                                 <Route path="/logOut" exact component={LogOut} />
                             </Switch>
