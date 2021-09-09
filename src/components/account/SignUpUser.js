@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const SignUp = () => {
+const SignUpUser = () => {
     const classes = useStyles();
     const auth = useAuth()
     const firestore = useFirestore()
@@ -116,4 +116,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp;
+export default SignUpUser;

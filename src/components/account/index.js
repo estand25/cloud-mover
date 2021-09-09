@@ -1,7 +1,7 @@
 import Profile from "./Profile";
 import LogInUser from "./LogInUser";
 import LogOutUser from "./LogOutUser";
-import SignUp from "./SignUp";
+import SignUpUser from "./SignUpUser";
 import NoProfilePresent from "./NoProfilePresent";
 import DeleteAccountButton from "./DeleteAccountButton";
 import AccountIcon from "./AcountIcon";
@@ -12,7 +12,7 @@ export {
     LogInUser,
     PasswordTextField,
     LogOutUser,
-    SignUp,
+    SignUpUser,
     NoProfilePresent,
     DeleteAccountButton,
     AccountIcon
