@@ -3,3 +3,6 @@ dist
 
 # testing
 /coverage
+
+/src/config
+/src/config/firebaseConfig.js
