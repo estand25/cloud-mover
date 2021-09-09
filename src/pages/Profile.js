@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { useSigninCheck, useStorage } from "reactfire";
+import { useSigninCheck, useStorage, useFirestore } from "reactfire";
 
 import { ref, uploadBytesResumable, getDownloadURL } from '@firebase/storage';
 import { updateProfile } from '@firebase/auth';
@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ProfileUser } from '../components/account';
 import { useHistory } from 'react-router-dom'
 import { CardLayout } from "../components/general";
+import { doc, setDoc, updateDoc } from '@firebase/firestore';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
     const classes = useStyles();
     const storage = useStorage();
-    const history = useHistory()
+    const firestore = useFirestore();
+    const history = useHistory();
 
     const {state: signInState, data: signInCheckResult} = useSigninCheck();
     const {user: inUser} = signInCheckResult ? signInCheckResult : {}
@@ -97,11 +99,27 @@ const Profile = () => {
         }
 
         if(fileName && fileName?.name){
+
             // Extension of file
             var exten = fileName.name.split('.')[1]
+
+            // Create ref to user document
+            var userRef = doc(firestore, 'users', profile?.uid)
+
+            //add record for file extension
+            updateDoc(userRef, {
+                imageExt: exten
+            })
+            .then(result => {
+                console.log('Image Extension added to user doc')
+            })
+            .catch(error => {
+                console.error('Error on adding image field', error)
+            })
             
             // Content Type of file
             var contentType = fileName.type;
+            
 
             // File location in Storage
             var newFileLocation = `images/${profile.uid}.${exten}`;
@@ -158,7 +176,7 @@ const Profile = () => {
         >
             <ProfileUser
                 classes={classes}
-                signInCheckResult={signInCheckResult}
+                signInCheckResult={typeof(signInCheckResult?.user) !== 'undefined'}
                 value={profile}
                 onChangeState={updateState}
                 onChangeImage={uploadImage}

@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 
 import {
-    ProfileUser
+    AccountInfo
 } from '../components/account'
 
 import {
@@ -55,6 +55,7 @@ export const App = () =>  {
                                 <Route path="/signUp" exact component={SignUp} />
                                 <Route path="/logIn" exact component={LogIn} />
                                 <Route path="/logOut" exact component={LogOut} />
+                                <Route path="/myAccount" exact component={AccountInfo} />
                             </Switch>
                         </Router>
                     </StorageProvider>

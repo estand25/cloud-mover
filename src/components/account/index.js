@@ -6,6 +6,7 @@ import NoProfilePresent from "./NoProfilePresent";
 import DeleteAccountButton from "./DeleteAccountButton";
 import AccountIcon from "./AcountIcon";
 import PasswordTextField from "./PasswordTextField";
+import AccountInfo from "./AccountInfo";
 
 export {
     ProfileUser,
@@ -15,5 +16,6 @@ export {
     SignUpUser,
     NoProfilePresent,
     DeleteAccountButton,
-    AccountIcon
+    AccountIcon,
+    AccountInfo
 }
