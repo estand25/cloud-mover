@@ -5,9 +5,9 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useHistory } from 'react-router-dom'
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import { LogInUser } from '../components/account';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {

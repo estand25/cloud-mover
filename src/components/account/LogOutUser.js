@@ -1,14 +1,19 @@
 import React from 'react'
+import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 
-const LogOutUser = ({onLogOut}) => {
+import clsx from 'clsx';
+
+const LogOutUser = ({classes, onLogOut}) => {
     return (
-        <Button 
-            onClick={onLogOut}
-            variant="outlined"
-        >
-            Log Out
-        </Button>
+        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+            <Button 
+                onClick={onLogOut}
+                variant="outlined"
+            >
+                Log Out
+            </Button>
+        </FormControl>
     )
 }
 
