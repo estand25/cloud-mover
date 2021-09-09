@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profile = () => {
+const ProfileUser = () => {
     const classes = useStyles();
     const storage = useStorage();
 
@@ -196,4 +196,4 @@ const Profile = () => {
     }
 }
 
-export default Profile
+export default ProfileUser

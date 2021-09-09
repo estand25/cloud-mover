@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 
 import {
-    Profile
+    ProfileUser
 } from '../components/account'
 
 import {

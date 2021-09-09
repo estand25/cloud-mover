@@ -1,4 +1,4 @@
-import Profile from "./Profile";
+import ProfileUser from "./ProfileUser";
 import LogInUser from "./LogInUser";
 import LogOutUser from "./LogOutUser";
 import SignUpUser from "./SignUpUser";
@@ -8,7 +8,7 @@ import AccountIcon from "./AcountIcon";
 import PasswordTextField from "./PasswordTextField";
 
 export {
-    Profile,
+    ProfileUser,
     LogInUser,
     PasswordTextField,
     LogOutUser,
