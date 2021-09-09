@@ -9,6 +9,8 @@ import { LogInUser } from '../components/account';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import { CardLayout } from '../components/general';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
@@ -19,6 +21,15 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         width: '25ch',
       }
+    },
+    card: {
+        maxWidth: 345,  
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center"
+      },
+    header: {
+        textAlign: 'center'
     }
   }));
 
@@ -72,14 +83,18 @@ const LogIn = () => {
     const handleMouseDownPassword = (event) => event.preventDefault()
 
     return (
-        <LogInUser
-            classes={classes}
-            value={logInObj}
-            onChange={updateState}
-            onChangeShowPassword={updateShowPassword}
-            onChangeMouseShowPassword={handleMouseDownPassword}
-            onLogIn={logIn}
-        />
+        <CardLayout
+            header={'Log In'}
+        >
+            <LogInUser
+                classes={classes}
+                value={logInObj}
+                onChange={updateState}
+                onChangeShowPassword={updateShowPassword}
+                onChangeMouseShowPassword={handleMouseDownPassword}
+                onLogIn={logIn}
+            /> 
+        </CardLayout>
     )
 }
 

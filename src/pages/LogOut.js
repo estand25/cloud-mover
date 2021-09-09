@@ -6,6 +6,8 @@ import { signOut } from 'firebase/auth'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom'
 
+import { CardLayout } from "../components/general";
+
 const useStyles = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
@@ -30,10 +32,14 @@ const LogOut = () => {
     }
 
     return (
-        <LogOutUser
-            classes={classes}
-            onLogOut={onLogOut}
-        />
+        <CardLayout
+            header={'Log Out'}
+        >
+            <LogOutUser
+                classes={classes}
+                onLogOut={onLogOut}
+            />
+        </CardLayout>
     )
 }
 

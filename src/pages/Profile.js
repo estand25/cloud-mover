@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { ProfileUser } from '../components/account';
 import { useHistory } from 'react-router-dom'
+import { CardLayout } from "../components/general";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -152,16 +153,20 @@ const Profile = () => {
     }
 
     return (
-        <ProfileUser
-            classes={classes}
-            signInCheckResult={signInCheckResult}
-            value={profile}
-            onChangeState={updateState}
-            onChangeImage={uploadImage}
-            file={fileName}
-            previewImageUrl={preview}
-            onSubmit={updateProfileInfo}
-        />
+        <CardLayout
+            header={'Profile'}
+        >
+            <ProfileUser
+                classes={classes}
+                signInCheckResult={signInCheckResult}
+                value={profile}
+                onChangeState={updateState}
+                onChangeImage={uploadImage}
+                file={fileName}
+                previewImageUrl={preview}
+                onSubmit={updateProfileInfo}
+            />
+        </CardLayout>
     )
 }
 

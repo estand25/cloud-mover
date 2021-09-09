@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router';
 
 import { SignUpUser } from '../components/account';
+import { CardLayout } from "../components/general";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,14 +76,18 @@ const useStyles = makeStyles((theme) => ({
     const handleMouseDownPassword = (event) => event.preventDefault()
 
     return (
-        <SignUpUser
-            classes={classes}
-            onChangeState={updateState}
-            value={reg}
-            onChangeShowPassword={updateShowPassword}
-            onChangeMouseShowPassword={handleMouseDownPassword}
-            onSubmit={createUser}
-        />
+        <CardLayout
+            header={'Sign Up'}
+        >
+            <SignUpUser
+                classes={classes}
+                onChangeState={updateState}
+                value={reg}
+                onChangeShowPassword={updateShowPassword}
+                onChangeMouseShowPassword={handleMouseDownPassword}
+                onSubmit={createUser}
+            />
+        </CardLayout>
     )
   }
 
