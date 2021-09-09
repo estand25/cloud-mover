@@ -1,20 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
+import Button from '@material-ui/core/Button';
 
-import { useAuth } from "reactfire";
-import { signOut } from 'firebase/auth'
-
-const LogOutUser = () => {
-    const auth = useAuth()
-
-    const onLogOut = () => {
-        console.log('onLogOut', auth)
-        signOut(auth)
-    }
-
+const LogOutUser = ({onLogOut}) => {
     return (
-        <button onClick={onLogOut}>
+        <Button 
+            onClick={onLogOut}
+            variant="outlined"
+        >
             Log Out
-        </button>
+        </Button>
     )
 }
 
