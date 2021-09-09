@@ -2,16 +2,14 @@ import React, {useEffect, useState} from 'react'
 import { useSigninCheck, useStorage } from "reactfire";
 
 import { ref, uploadBytesResumable, getDownloadURL } from '@firebase/storage';
-import { updateProfile, deleteUser } from '@firebase/auth';
+import { updateProfile } from '@firebase/auth';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Input, Fab } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from '@material-ui/core/styles';
 import { NoProfilePresent } from '.';
+import { UploadPhotoButton } from '../general'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -140,10 +138,6 @@ const Profile = () => {
 
     }
 
-    const deleteAccount = () => {
-        console.log('deleteAccount')
-    }
-
     const uploadImage = (event) => {
         setFileName(event.target.files[0])
         setPreview(URL.createObjectURL(event.target.files[0]))
@@ -165,7 +159,7 @@ const Profile = () => {
     else
     {
         return (
-            <form className={classes.root} noValidate autoComplete="off">
+            <form className={classes.root}>
                 <div>
                     <TextField
                         id="outlined-Display"
@@ -185,37 +179,18 @@ const Profile = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="upload-photo">
-                        <Input
-                            style={{ display: "none" }}
-                            id="upload-photo"
-                            name="upload-photo"
-                            variant="outlined"
-                            type="file"
-                            onChange={uploadImage}
-                        />
-                        <Fab
-                            color="secondary"
-                            size="small"
-                            component="span"
-                            aria-label="add"
-                            variant="extended"
-                        >
-                            <AddIcon /> Upload photo
-                        </Fab>
-                        <div>
-                            {fileName ? fileName.name : null}
-                        </div>
-                        {preview && (
-                        <div>
-                            <Avatar alt={fileName ? fileName.name : null} src={preview} />
-                        </div>
-                        )}
-                    </label>
+                    <UploadPhotoButton
+                        label={'Upload photo'}
+                        onChange={uploadImage}
+                        file={fileName}
+                        previewImageUrl={preview}
+                    />
                 </div>
-                <Button variant="outlined" onClick={updateProfileInfo}>
-                    Update Profile
-                </Button>
+                <div>
+                    <Button variant="outlined" onClick={updateProfileInfo}>
+                        Update Profile
+                    </Button>
+                </div>
             </form>
         )
     }
