@@ -7,7 +7,7 @@ import {PasswordTextField} from '.'
 
 const SignUpUser = ({classes, onChangeState, value, onChangeShowPassword, onChangeMouseShowPassword, onSubmit}) => {
     return (
-        <form className={classes.root} noValidate autoComplete="off">
+        <form className={classes.root} noValidate>
             <div>
                 <div>
                     <TextField
