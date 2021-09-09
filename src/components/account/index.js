@@ -1,16 +1,18 @@
 import Profile from "./Profile";
 import LogInUser from "./LogInUser";
 import LogOutUser from "./LogOutUser";
-import Registion from "./Registion";
+import SignUp from "./SignUp";
 import NoProfilePresent from "./NoProfilePresent";
 import DeleteAccountButton from "./DeleteAccountButton";
 import AccountIcon from "./AcountIcon";
+import PasswordTextField from "./PasswordTextField";
 
 export {
     Profile,
     LogInUser,
+    PasswordTextField,
     LogOutUser,
-    Registion,
+    SignUp,
     NoProfilePresent,
     DeleteAccountButton,
     AccountIcon
