@@ -6,14 +6,14 @@ import {
 } from 'react-router-dom'
 
 import {
-    Profile,
-    SignUpUser
+    Profile
 } from '../components/account'
 
 import {
     FrontPage,
     LogIn,
-    LogOut
+    LogOut,
+    SignUp
 } from '../pages'
 
 import { getAuth } from 'firebase/auth';
@@ -51,7 +51,7 @@ export const App = () =>  {
                             <Switch>
                                 <Route path="/" exact component={FrontPage} />
                                 <Route path="/profile" exact component={Profile} />
-                                <Route path="/signUp" exact component={SignUpUser} />
+                                <Route path="/signUp" exact component={SignUp} />
                                 <Route path="/logIn" exact component={LogIn} />
                                 <Route path="/logOut" exact component={LogOut} />
                             </Switch>
