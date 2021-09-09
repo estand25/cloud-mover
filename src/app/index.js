@@ -13,7 +13,8 @@ import {
     FrontPage,
     LogIn,
     LogOut,
-    SignUp
+    SignUp,
+    Profile
 } from '../pages'
 
 import { getAuth } from 'firebase/auth';
