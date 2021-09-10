@@ -89,7 +89,7 @@ const AccountInfo = () => {
         console.log('onAccountDelete') 
 
         var { user } = signInCheckResult
-        var storageInfo  = `images/${account.uid}.${account.imageExt}`;
+        var storageInfo  =`images/${account.uid}/profile_image.${account.imageExt}`;
         console.log('storage', storageInfo)
         const imageRef = ref(storage, storageInfo)
         console.log('imageRef', imageRef)
