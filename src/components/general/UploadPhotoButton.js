@@ -11,9 +11,11 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
+      alignItems: 'center'
     },
     textField: {
       width: '25ch',
+      alignItems: 'center'
     }
   }));
 
@@ -31,7 +33,7 @@ const UploadPhotoButton = ({label, onChange, file, previewImageUrl}) => {
                     onChange={onChange}
                 />
                 <Fab
-                    color="secondary"
+                    color="primary"
                     size="small"
                     component="span"
                     aria-label="add"
@@ -39,14 +41,6 @@ const UploadPhotoButton = ({label, onChange, file, previewImageUrl}) => {
                 >
                     <AddIcon /> Upload photo
                 </Fab>
-                <div>
-                    {file ? file.name : null}
-                </div>
-                {previewImageUrl && (
-                <div>
-                    <Avatar style={{margin: '1px'}}  alt={file ? file.name : null} src={previewImageUrl} />
-                </div>
-                )}
             </label>
         </FormControl>
     )

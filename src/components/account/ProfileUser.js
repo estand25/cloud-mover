@@ -13,6 +13,11 @@ const ProfileUser = ({classes, signInCheckResult, value, onChangeState, onChange
         return (
             <form className={classes.root}>
                 <div>
+                    <UploadPhotoButton
+                        onChange={onChangeImage}
+                    />
+                </div>
+                <div>
                     <TextField
                         id="outlined-Display"
                         label="Display"
@@ -28,14 +33,6 @@ const ProfileUser = ({classes, signInCheckResult, value, onChangeState, onChange
                         value={value.email}
                         variant="outlined"
                         onChange={(e) => onChangeState(e.target.value,'email')}
-                    />
-                </div>
-                <div>
-                    <UploadPhotoButton
-                        label={'Upload photo'}
-                        onChange={onChangeImage}
-                        file={file}
-                        previewImageUrl={previewImageUrl}
                     />
                 </div>
                 <div>

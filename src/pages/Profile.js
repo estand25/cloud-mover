@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { ProfileUser } from '../components/account';
 import { useHistory } from 'react-router-dom'
-import { CardLayout } from "../components/general";
+import { CardLayoutWithMedia } from "../components/general";
 import { doc, setDoc, updateDoc } from '@firebase/firestore';
 
 const useStyles = makeStyles((theme) => ({
@@ -122,7 +122,7 @@ const Profile = () => {
             
 
             // File location in Storage
-            var newFileLocation = `images/${profile.uid}.${exten}`;
+            var newFileLocation = `images/${profile.uid}/profile_image.${exten}`;
             const imageRef = ref(storage, newFileLocation)
 
             const metaData = {
@@ -171,8 +171,10 @@ const Profile = () => {
     }
 
     return (
-        <CardLayout
+        <CardLayoutWithMedia
             header={'Profile'}
+            image={preview}
+            title={''}
         >
             <ProfileUser
                 classes={classes}
@@ -184,7 +186,7 @@ const Profile = () => {
                 previewImageUrl={preview}
                 onSubmit={updateProfileInfo}
             />
-        </CardLayout>
+        </CardLayoutWithMedia>
     )
 }
 
