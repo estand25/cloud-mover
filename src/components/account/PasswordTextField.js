@@ -9,20 +9,8 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-    textField: {
-      width: '25ch',
-    }
-  }));
-
-const PasswordTextField = ({label, value, showPassword, onChange, onChangeShowPassword, onChangeMouseShowPassword}) => {
-    const classes = useStyles();
-
+const PasswordTextField = ({classes, label, value, showPassword, onChange, onChangeShowPassword, onChangeMouseShowPassword}) => {
     return (
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
             <InputLabel htmlFor="outlined-password">{label}</InputLabel>

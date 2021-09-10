@@ -29,6 +29,7 @@ const SignUpUser = ({classes, onChangeState, value, onChangeShowPassword, onChan
                 </div>
                 <div>
                     <PasswordTextField
+                        classes={classes}
                         label={'Password'}
                         value={value.password}
                         showPassword={value.showPassword}

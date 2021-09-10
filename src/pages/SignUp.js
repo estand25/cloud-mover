@@ -21,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
         width: '25ch',
       }
     },
+    margin: {
+        margin: theme.spacing(1),
+      },
+    textField: {
+        width: '25ch',
+    }
   }));
 
   const SignUp = () => {

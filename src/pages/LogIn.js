@@ -30,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
       },
     header: {
         textAlign: 'center'
+    },
+    margin: {
+        margin: theme.spacing(1),
+      },
+    textField: {
+        width: '25ch',
     }
   }));
 

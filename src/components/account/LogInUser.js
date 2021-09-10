@@ -19,6 +19,7 @@ const LogInUser = ({classes, value, onChange, onChangeShowPassword, onChangeMous
             </div>
             <div>
                 <PasswordTextField
+                    classes={classes}
                     label={'Password'}
                     value={value.password}
                     showPassword={value.showPassword}

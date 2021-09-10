@@ -1,28 +1,14 @@
 import React from "react"
 import { Fab } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
 import AddIcon from "@material-ui/icons/Add";
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FormControl from '@material-ui/core/FormControl';
 
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-      alignItems: 'center'
-    },
-    textField: {
-      width: '25ch',
-      alignItems: 'center'
-    }
-  }));
-
-const UploadPhotoButton = ({label, onChange, file, previewImageUrl}) => {
-    const classes = useStyles();
+const UploadPhotoButton = ({classes, onChange}) => {
     return (
-        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+        <FormControl className={clsx(classes.marginPhoto, classes.textFieldPhoto)} variant="outlined">
             <label htmlFor="upload-photo">
                 <OutlinedInput
                     style={{ display: "none" }}

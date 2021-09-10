@@ -14,6 +14,7 @@ const ProfileUser = ({classes, signInCheckResult, value, onChangeState, onChange
             <form className={classes.root}>
                 <div>
                     <UploadPhotoButton
+                        classes={classes}
                         onChange={onChangeImage}
                     />
                 </div>
