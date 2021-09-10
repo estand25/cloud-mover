@@ -1,9 +1,23 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import App from '../../src/app/index.js'
+import Adapter from 'enzyme-adapter-react-16'
+import { mount, configure } from 'enzyme'
+import { App } from '../../src/app'
+import * as reactFire from 'reactfire'
 
-it('render without crashing', () => {
-    // const app = render(<App />)
+import { firebaseConfig } from '../../src/config/firebaseConfig'
 
-    // expect(app).toBeTruthy()
+configure({ adapter: new Adapter() })
+
+const renderApp = (firebaseConfig) =>  {
+    return mount(
+        <reactFire.FirebaseAppProvider firebaseConfig={ firebaseConfig }>
+            <App />
+        </reactFire.FirebaseAppProvider>
+    );
+  }
+
+it('render without crashing', () => {    
+    const app = renderApp(firebaseConfig)
+
+    expect(app).toBeTruthy()
 })
