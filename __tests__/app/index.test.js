@@ -4,11 +4,14 @@ import { mount, configure } from 'enzyme'
 import { App } from '../../src/app'
 import * as reactFire from 'reactfire'
 
-import { firebaseConfig } from '../../src/config/firebaseConfig'
-
 configure({ adapter: new Adapter() })
 
-const renderApp = (firebaseConfig) =>  {
+const renderApp = () =>  {
+    const firebaseConfig = {
+        apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        projectId: "cloud",
+    }
+
     return mount(
         <reactFire.FirebaseAppProvider firebaseConfig={ firebaseConfig }>
             <App />
@@ -17,7 +20,7 @@ const renderApp = (firebaseConfig) =>  {
   }
 
 it('render without crashing', () => {    
-    const app = renderApp(firebaseConfig)
+    const app = renderApp()
 
     expect(app).toBeTruthy()
 })
