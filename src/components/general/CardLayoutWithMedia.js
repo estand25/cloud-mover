@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
 
 import { makeStyles } from '@material-ui/core/styles';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: 200,
         borderRadius: '50%',
+        alignItems:"center"
     },
   }));
 const CardLayoutWithMedia = (props) => {
@@ -35,11 +37,18 @@ const CardLayoutWithMedia = (props) => {
                     <Typography style={{ textAlign: 'center' }} variant="h5" component="h2">
                         {props.header}
                     </Typography>  
-                    <CardMedia
-                        className={classes.media}
-                        image={props.image}
-                        title={props.title}
-                    />  
+                    {
+                        props.image ?
+                            <CardMedia
+                                className={classes.media}
+                                image={props.image}
+                                title={props.title}
+                            /> 
+                            :
+                            <AccountCircle
+                                style={{ fontSize: 200 }}
+                            />
+                    } 
                 {props.children}  
                 </CardContent>  
             </Card>        
