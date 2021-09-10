@@ -95,26 +95,26 @@ const AccountInfo = () => {
         console.log('imageRef', imageRef)
         const accountRef = doc(firestore, 'users', account.uid)
         
-        deleteDoc(accountRef)
+        deleteObject(imageRef)
         .then(result => {
-            console.log('User successfully delete')
-            deleteUser(user)
+            console.log('Storage Image successfully delete')
+            deleteDoc(accountRef)
             .then(result => {
-                console.log('Profile successfully delete')
-                deleteObject(imageRef)
+                console.log('User successfully delete')
+                deleteUser(user)
                 .then(result => {
-                    console.log('Storage Image successfully delete')
+                    console.log('Profile successfully delete')
                 })
                 .catch(error => {
-                    console.error('Error on delete Storage Image', error)
+                    console.error('Error on delete Profile', error)
                 })
             })
             .catch(error => {
-                console.error('Error on delete Profile', error)
+                console.error('Error on delete User', error)
             })
         })
         .catch(error => {
-            console.error('Error on delete User', error)
+            console.error('Error on delete Storage Image', error)
         })
     }
 

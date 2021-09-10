@@ -32,7 +32,7 @@ import {
 
 import {
     NavBar
-} from '../components/section'
+} from '../components/navigation'
 
 export const App = () =>  {
     const app = useFirebaseApp();

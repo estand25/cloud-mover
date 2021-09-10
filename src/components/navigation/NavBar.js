@@ -100,6 +100,7 @@ const NavBar = () => {
               color="inherit"
             >
               <MoreIcon />
+              <NavBarAvatar/>
             </IconButton>
           </div>
         </Toolbar>

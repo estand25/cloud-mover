@@ -32,7 +32,8 @@ const NavBarAvatar = () => {
     {
       method: handleClick,
       menuOptions: [
-        {onClickHandle: () => onMenuHandler('/logIn'), label: 'Log-In'}
+        {onClickHandle: () => onMenuHandler('/logIn'), label: 'Log-In'},
+        {onClickHandle: () => onMenuHandler('/signUp'), label: 'Sign-Up'}
       ]
     }
     :
