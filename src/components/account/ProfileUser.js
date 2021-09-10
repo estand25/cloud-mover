@@ -22,18 +22,20 @@ const ProfileUser = ({classes, signInCheckResult, value, onChangeState, onChange
                     <TextField
                         id="outlined-Display"
                         label="Display"
+                        name="displayName"
                         value={value.displayName}
                         variant="outlined"
-                        onChange={(e) => onChangeState(e.target.value,'displayName')}
+                        onChange={onChangeState}
                     />
                 </div>
                 <div>
                     <TextField
                         id="outlined-Email"
                         label="Email"
+                        name="email"
                         value={value.email}
                         variant="outlined"
-                        onChange={(e) => onChangeState(e.target.value,'email')}
+                        onChange={onChangeState}
                     />
                 </div>
                 <div>

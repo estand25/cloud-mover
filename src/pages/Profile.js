@@ -174,9 +174,9 @@ const Profile = () => {
         setPreview(URL.createObjectURL(event.target.files[0]))
     }
 
-    const updateState = (value, targetField) => {
+    const updateState = (e) => {
         var updateValues = Object.assign(profile, {});
-        updateValues[targetField] = value;
+        updateValues[e.target.name] = e.target.value;
 
         setProfile({
             ...profile,

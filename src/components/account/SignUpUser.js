@@ -13,18 +13,20 @@ const SignUpUser = ({classes, onChangeState, value, onChangeShowPassword, onChan
                     <TextField
                         id="outlined-name"
                         label="Name"
+                        name="name"
                         value={value.name}
                         variant={"outlined"}
-                        onChange={(e) => onChangeState(e.target.value, 'name')}
+                        onChange={onChangeState}
                     />
                 </div>
                 <div>
                     <TextField
                         id="outlined-email"
                         label="Email"
+                        name="email"
                         value={value.email}
                         variant={"outlined"}
-                        onChange={(e) => onChangeState(e.target.value, 'email')}
+                        onChange={onChangeState}
                     />
                 </div>
                 <div>
@@ -33,7 +35,7 @@ const SignUpUser = ({classes, onChangeState, value, onChangeShowPassword, onChan
                         label={'Password'}
                         value={value.password}
                         showPassword={value.showPassword}
-                        onChange={(e) => onChangeState(e.target.value, 'password')}
+                        onChange={onChangeState}
                         onChangeShowPassword={onChangeShowPassword}
                         onChangeMouseShowPassword={onChangeMouseShowPassword}
                     />

@@ -9,19 +9,21 @@ const AccountInfo = ({classes, value, onChangeState, onChangeAccount, onDeleteAc
             <div>
                 <TextField
                     id="outline"
+                    name="name"
                     label="Name"
                     value={value.name}
                     variant="outlined"
-                    onChange={(e) => onChangeState(e.target.value,'name')}
+                    onChange={onChangeState}
                 />
             </div>
             <div>
                 <TextField
                     id="outline"
+                    name="authProvider"
                     label="Auth Provider"
                     value={value.authProvider}
                     variant="outlined"
-                    onChange={(e) => onChangeState(e.target.value,'authProvider')}
+                    onChange={onChangeState}
                 />
             </div>
             <div>

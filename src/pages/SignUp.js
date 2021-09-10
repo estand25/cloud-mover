@@ -68,9 +68,9 @@ const useStyles = makeStyles((theme) => ({
         }
     }
 
-    const updateState = (value, targetField) => {
+    const updateState = (e) => {
         var updateValues = Object.assign(reg, {});
-        updateValues[targetField] = value;
+        updateValues[e.target.name] = e.target.value;
 
         setReg({
             ...reg,

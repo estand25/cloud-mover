@@ -62,9 +62,9 @@ const MyAccount = () => {
     }, [signInCheckResult])
 
 
-    const updateState = (value, targetField) => {
+    const updateState = (e) => {
         var updateValues = Object.assign(account, {});
-        updateValues[targetField] = value;
+        updateValues[e.target.name] = e.target.value;
 
         setAccount({
             ...account,

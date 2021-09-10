@@ -18,6 +18,7 @@ const PasswordTextField = ({classes, label, value, showPassword, onChange, onCha
                 id="outlined-password"
                 type={showPassword ? 'text' : 'password'}
                 value={value}
+                name="password"
                 onChange={onChange}
                 endAdornment={
                     <InputAdornment position="end">

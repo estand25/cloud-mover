@@ -75,9 +75,9 @@ const LogIn = () => {
         }
     }
 
-    const updateState = (value, targetField) => {
+    const updateState = (e) => {
         var updateValues = Object.assign(logInObj, {});
-        updateValues[targetField] = value;
+        updateValues[e.target.name] = e.target.value;
 
         setLogIn({
             ...logInObj,

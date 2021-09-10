@@ -11,10 +11,11 @@ const LogInUser = ({classes, value, onChange, onChangeShowPassword, onChangeMous
             <div>
                 <TextField
                     id="outlined-email"
-                    label="Email"
+                    label={"Email"}
+                    name={"email"}
                     value={value.email}
                     variant="outlined"
-                    onChange={(e) => onChange(e.target.value, 'email')}
+                    onChange={onChange}
                 />
             </div>
             <div>
@@ -23,7 +24,7 @@ const LogInUser = ({classes, value, onChange, onChangeShowPassword, onChangeMous
                     label={'Password'}
                     value={value.password}
                     showPassword={value.showPassword}
-                    onChange={(e) => onChange(e.target.value, 'password')}
+                    onChange={onChange}
                     onChangeShowPassword={onChangeShowPassword}
                     onChangeMouseShowPassword={onChangeMouseShowPassword}
                 />
