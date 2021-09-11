@@ -1,4 +1,7 @@
+[![Coverage Status](https://coveralls.io/repos/github/estand25/cloud-mover/badge.svg?branch=master)](https://coveralls.io/github/estand25/cloud-mover?branch=master)
+
 # Cloud-Mover
+
 
 ------- Features ---------
 - User Authentication
