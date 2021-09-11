@@ -8,7 +8,7 @@ const AccountInfo = ({classes, value, onChangeState, onChangeAccount, onDeleteAc
         <form className={classes.root}>
             <div>
                 <TextField
-                    id="outline"
+                    id="outline-name"
                     name="name"
                     label="Name"
                     value={value.name}
@@ -18,7 +18,7 @@ const AccountInfo = ({classes, value, onChangeState, onChangeAccount, onDeleteAc
             </div>
             <div>
                 <TextField
-                    id="outline"
+                    id="outline-authProvider"
                     name="authProvider"
                     label="Auth Provider"
                     value={value.authProvider}
@@ -32,7 +32,7 @@ const AccountInfo = ({classes, value, onChangeState, onChangeAccount, onDeleteAc
                         readOnly: true,
                         disabled: true,
                     }}
-                    id="outline"
+                    id="outline-uid"
                     label="Unique Id"
                     value={value.uid}
                     variant="outlined"
@@ -40,7 +40,7 @@ const AccountInfo = ({classes, value, onChangeState, onChangeAccount, onDeleteAc
             </div>
             <div>
                 <Button 
-                    variant="outlined" 
+                    variant="outlined-change-account" 
                     onClick={onChangeAccount}
                 >
                     Update Account
@@ -48,7 +48,7 @@ const AccountInfo = ({classes, value, onChangeState, onChangeAccount, onDeleteAc
             </div>
             <div>
                 <Button 
-                    variant="outlined" 
+                    variant="outlined-delete-account" 
                     color="secondary"
                     onClick={onDeleteAccount}
                 >

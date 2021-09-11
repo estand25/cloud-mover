@@ -29,7 +29,7 @@ const MyAccount = () => {
     const auth = useAuth();
     const history = useHistory();
 
-    const {state: signInState, data: signInCheckResult} = useSigninCheck()  
+    const { data: signInCheckResult } = useSigninCheck()  
     const [account, setAccount] = useState({
         authProvider: '',
         name: '',
