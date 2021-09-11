@@ -11,11 +11,14 @@ const LogInUser = ({classes, value, onChange, onChangeShowPassword, onChangeMous
             <div>
                 <TextField
                     id="outlined-email"
+                    required
                     label={"Email"}
                     name={"email"}
                     value={value.email}
                     variant="outlined"
                     onChange={onChange}
+                    error={!value.email}
+                    helperText={!value.email ? 'Email is required' : ''}
                 />
             </div>
             <div>

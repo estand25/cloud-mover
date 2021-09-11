@@ -26,6 +26,9 @@ const ProfileUser = ({classes, signInCheckResult, value, onChangeState, onChange
                         value={value.displayName}
                         variant="outlined"
                         onChange={onChangeState}
+                        required
+                        error={!value.displayName}
+                        helperText={!value.displayName ? "Display name is required" : ""}
                     />
                 </div>
                 <div>
@@ -33,6 +36,10 @@ const ProfileUser = ({classes, signInCheckResult, value, onChangeState, onChange
                         id="outlined-Email"
                         label="Email"
                         name="email"
+                        inputProps={{
+                            readOnly: true,
+                            disabled: true,
+                        }}
                         value={value.email}
                         variant="outlined"
                         onChange={onChangeState}
