@@ -7,7 +7,7 @@ jest.mock("reactfire", () => ({
     useSigninCheck: jest.fn()
 }))
 
-describe('Testing AccountIcon without Sign In', () => {
+describe('Testing AccountIcon without data present', () => {
     beforeEach(() => {
         useSigninCheckMock.mockImplementation(() => () => { });
     })
@@ -99,95 +99,10 @@ describe('Testing AccountIcon with Sign In and signIn null', () => {
     })
 })
 
-describe('Testing AccountIcon with Sign In and signIn present with user null', () => {
+describe('Testing AccountIcon with data present, but null', () => {
     beforeEach(() => {
         useSigninCheckMock.mockImplementation(() => () => { 
-            data: {
-                signedIn: true
-                user: {}
-            }
-        });
-    })
-
-    afterEach(() => {
-        useSigninCheckMock.mockClear();
-    })
-
-    const useSigninCheckMock = reactFire.useSigninCheck;
-
-    it('render without crashing', () => {
-        const accountIcon = render(
-            <AccountIcon />
-        )
-
-        expect(accountIcon).toBeTruthy();
-    })
-})
-
-describe('Testing AccountIcon with Sign In and signIn present with user displayName present only', () => {
-    beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => () => { 
-            data: {
-                signedIn: true
-                user: {
-                    displayName: 'displayName'
-                }
-            }
-        });
-    })
-
-    afterEach(() => {
-        useSigninCheckMock.mockClear();
-    })
-
-    const useSigninCheckMock = reactFire.useSigninCheck;
-
-    it('render without crashing', () => {
-        const accountIcon = render(
-            <AccountIcon />
-        )
-
-        expect(accountIcon).toBeTruthy();
-    })
-})
-
-describe('Testing AccountIcon with Sign In and signIn present with user photoURL present only', () => {
-    beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => () => { 
-            data: {
-                signedIn: true
-                user: {
-                    photoURL: "https://jooinn.com/images/colorful-paint-2.jpg"
-                }
-            }
-        });
-    })
-
-    afterEach(() => {
-        useSigninCheckMock.mockClear();
-    })
-
-    const useSigninCheckMock = reactFire.useSigninCheck;
-
-    it('render without crashing', () => {
-        const accountIcon = render(
-            <AccountIcon />
-        )
-
-        expect(accountIcon).toBeTruthy();
-    })
-})
-
-describe('Testing AccountIcon with Sign In and signIn present with user displayName & photoURL are present', () => {
-    beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => () => { 
-            data: {
-                signedIn: true
-                user: {
-                    displayName:'Test1'
-                    photoURL: "https://jooinn.com/images/colorful-paint-2.jpg"
-                }
-            }
+            data: {}
         });
     })
 
