@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
-
 import {
     updateState, 
-    updateAlert } from '../../src/utilies'
+    updateAlert,
+    updateShowPassword,
+    handleMouseDownPassword,
+    routeHome
+ } from '../../src/utilies'
 
 describe('Testing utility function', () => {        
     const useState = (defaultValue) => {
@@ -86,5 +88,68 @@ describe('Testing utility function', () => {
         expect(actual.text).toEqual(ex.text)
         expect(actual.open).toEqual(ex.open)
 
+    })
+    
+    it('Testing updateShowPassword will update', () => {
+        const actual = {
+            showPassword: false
+        }
+
+        var ex = {
+            showPassword: true
+        }
+
+        const onChange = newValue => {
+            return newValue
+        }
+
+        updateShowPassword(
+            onChange, 
+            actual,
+            ex.showPassword
+        )
+
+        expect(actual.showPassword).not.toBeNull()
+    })
+
+    it('Testing handleMouseDownPassword will be clicked', () => {
+        const preventDefault = jest.fn()
+        const actual = {
+            e: {
+                preventDefault: () => preventDefault()
+            }
+        }
+
+        handleMouseDownPassword(actual.e)
+
+        expect(preventDefault).toHaveBeenCalled();
+    })
+    
+    it('Testing routeHome will call push when severity is success ', () => {
+        const alert = {
+            severity: 'success'
+        }
+
+        const history = {
+            push: jest.fn()
+        }
+
+        routeHome(alert, history)
+
+        expect(history.push).toHaveBeenCalled();
+    })
+
+    it('Testing routeHome will not be call push when severity is not success ', () => {
+        const alert = {
+            severity: 'error'
+        }
+
+        const history = {
+            push: jest.fn()
+        }
+
+        routeHome(alert, history)
+
+        expect(history.push).not.toHaveBeenCalled();
     })
 })
