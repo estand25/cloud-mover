@@ -12,8 +12,19 @@ import clsx from 'clsx';
 
 const PasswordTextField = ({classes, label, value, showPassword, onChange, onChangeShowPassword, onChangeMouseShowPassword}) => {
     return (
-        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-            <InputLabel htmlFor="outlined-password">{label}</InputLabel>
+        <FormControl 
+            className={clsx(classes.margin, classes.textField)} 
+            variant="outlined"
+            required
+            error={!value}
+        >
+            <InputLabel 
+                htmlFor="outlined-password"
+                required
+                error={!value}
+            >
+                {label}
+            </InputLabel>
             <OutlinedInput
                 id="outlined-password"
                 type={showPassword ? 'text' : 'password'}
@@ -33,6 +44,8 @@ const PasswordTextField = ({classes, label, value, showPassword, onChange, onCha
                     </InputAdornment>
                 }
                 labelWidth={70}
+                required
+                error={!value}
             />
         </FormControl>
     )

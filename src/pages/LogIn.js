@@ -4,12 +4,11 @@ import { useAuth, useFirestore } from "reactfire";
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useHistory } from 'react-router-dom'
-
-import { LogInUser } from '../components/account';
-
 import { makeStyles } from '@material-ui/core/styles';
 
-import { CardLayout } from '../components/general';
+import { LogInUser } from '../components/account';
+import { CardLayout, SnackBarHolder } from '../components/general';
+import { updateState, updateAlert, updateShowPassword, handleMouseDownPassword, routeHome } from '../utilies';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,7 +35,13 @@ const useStyles = makeStyles((theme) => ({
       },
     textField: {
         width: '25ch',
-    }
+    },
+    snackbar: {
+        width: '100%',
+        '& > * + *': {
+        marginTop: theme.spacing(2),
+        },
+    },
   }));
 
 const LogIn = () => {
@@ -51,52 +56,100 @@ const LogIn = () => {
         showPassword: false
     })
 
+    const [alert, setAlert] = useState({
+        severity: '',
+        text: '',
+        open: false
+    })
+
     const logIn = () => {
         try {
-            signInWithEmailAndPassword(auth, logInObj.email, logInObj.password)
-            .then(data => {
-                const userRef = doc(firestore, 'users', data.user.uid)
+            if(logInObj.email && logInObj.password)
+            {
+                signInWithEmailAndPassword(auth, logInObj.email, logInObj.password)
+                .then(data => {
+                    const userRef = doc(firestore, 'users', data.user.uid)
 
-                getDoc(userRef)
-                    .then(result => {
-                        console.log('getDoc', result.data())
-                    })
-                    .catch(error =>  {
-                        console.log('get err', error)
-                    })
+                    getDoc(userRef)
+                        .then(result => {
+                            console.log('getDoc', result.data())
 
-                history.push('/')
-            })
-            .catch(error => {
-                console.error(error, 'error')
-            });
+                            updateAlert(
+                                'success',
+                                'Log-In account successfully',
+                                true,
+                                alert,
+                                setAlert
+                            )
+                        })
+                        .catch(error =>  {
+                            console.log('get err', error)
+                            updateAlert(
+                                'error',
+                                `Account information could not be retrieved for the following reason: ${error}!`,
+                                true,
+                                alert,
+                                setAlert
+                            )
+                        })
+
+                    // history.push('/')
+                })
+                .catch(error => {
+                    console.error(error, 'error')
+                    updateAlert(
+                        'error',
+                        `Log-In was not sucessfully for the following reason: ${error} !`,
+                        true,
+                        alert,
+                        setAlert
+                    )
+                });
+            }
+            else
+            {
+                console.log('Email & password must be provider')
+
+                updateAlert(
+                    'error',
+                    'Email & password must be provider !',
+                    true,
+                    alert,
+                    setAlert
+                )           
+            }
         } catch (error) {
             console.error(error, 'err')
+
+            updateAlert(
+                'error',
+                'Something went wrong while trying to log-in. Try again later!',
+                true,
+                alert,
+                setAlert
+            )
         }
     }
-
-    const updateState = (e) => {
-        var updateValues = Object.assign(logInObj, {});
-        updateValues[e.target.name] = e.target.value;
-
-        setLogIn({
-            ...logInObj,
-            ...updateValues
-        })
-    }
-
-    const updateShowPassword = () => setLogIn({...logInObj, showPassword: !logInObj.showPassword})
-    const handleMouseDownPassword = (event) => event.preventDefault()
 
     return (
         <CardLayout
             header={'Log In'}
         >
+            <SnackBarHolder
+                classes={classes}
+                alert={alert}
+                onHandleClose={() => {
+                    updateAlert(null, null, !alert.open, alert, setAlert)
+                    routeHome(alert, history)
+                }}
+            />
             <LogInUser
                 classes={classes}
                 value={logInObj}
-                onChange={updateState}
-                onChangeShowPassword={updateShowPassword}
+                onChange={(e) => updateState(e, setLogIn, logInObj)}
+                onChangeShowPassword={() => 
+                    updateShowPassword(setLogIn, logInObj, !logInObj.showPassword)
+                }
                 onChangeMouseShowPassword={handleMouseDownPassword}
                 onLogIn={logIn}
             /> 

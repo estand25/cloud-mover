@@ -17,6 +17,9 @@ const SignUpUser = ({classes, onChangeState, value, onChangeShowPassword, onChan
                         value={value.name}
                         variant={"outlined"}
                         onChange={onChangeState}
+                        required
+                        error={!value.name}
+                        helperText={!value.name ? 'Name is required' : ''}
                     />
                 </div>
                 <div>
@@ -27,6 +30,9 @@ const SignUpUser = ({classes, onChangeState, value, onChangeShowPassword, onChan
                         value={value.email}
                         variant={"outlined"}
                         onChange={onChangeState}
+                        required
+                        error={!value.email}
+                        helperText={!value.email ? 'Email is required' : ''}
                     />
                 </div>
                 <div>
@@ -41,7 +47,7 @@ const SignUpUser = ({classes, onChangeState, value, onChangeShowPassword, onChan
                     />
                 </div>
                 <Button variant="outlined" onClick={onSubmit}>
-                    Register
+                    Sign-Up
                 </Button>
             </div>
         </form>
