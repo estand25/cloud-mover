@@ -2,61 +2,62 @@
 
 # Cloud-Mover
 
-
 ------- Features ---------
 - User Authentication
--- LogIn
--- LogOut
--- Profile Page
+  - LogIn
+  - LogOut
+  - Profile
+  - Sign up
+  - Front Page
 
 - Notification
--- New Post
--- Update Post
--- New Reply to Post
--- Update Reply to Post
--- Like Post
--- UnLike Post
--- Delete Post
--- New Follower
--- Delete Following
+  - New Post
+  - Update Post
+  - New Reply to Post
+  - Update Reply to Post
+  - Like Post
+  - UnLike Post
+  - Delete Post
+  - New Follower
+  - Delete Following
 
 - NewsFeeds
--- Populate newest Post at top
+  - Populate newest Post at top
 
 - Easy Integration with Other platforms
--- Share with Facebook
--- Share with Twitter
--- Share with SnapChat
--- Share with Reddit
+  - Share with Facebook
+  - Share with Twitter
+  - Share with SnapChat
+  - Share with Reddit
 
 -------- DB Structure --------
 - User
--- Password
--- ProfileID
+  - Password
+  - ProfileID
 
 - Profile
--- CraateDateUtc
--- CreateBy
--- DOB
--- Email
--- Bio
+  - CraateDateUtc
+  - CreateBy
+  - DOB
+  - Email
+  - Bio
 
 - Post
--- PostId
--- Date
--- Title 
--- Text
--- Replied
--- ProfileId
+  - PostId
+  - Date
+  - Title 
+  - Text
+  - Replied
+  - ProfileId
 
 - Like
--- PostId
--- Likablity 
+  - PostId
+  - Likablity 
 
 - Following
--- FollowingID
--- ProfileId
+  - FollowingID
+  - ProfileId
 
 - Follower
--- FollowerID
--- ProfileId
+  - FollowerID
+  - ProfileId
