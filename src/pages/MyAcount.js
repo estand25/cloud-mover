@@ -1,35 +1,24 @@
 import React, { useState, useEffect} from 'react'
-import { deleteDoc, doc, getDoc, updateDoc} from '@firebase/firestore'
+import { doc, getDoc} from '@firebase/firestore'
 import { useStorage, useFirestore, useSigninCheck, useAuth } from 'reactfire'
 import { makeStyles } from '@material-ui/core/styles';
 
-
 import { AccountInfo } from '../components/account';
 import { CardLayout, SnackBarHolder } from '../components/general';
-import { deleteObject, ref } from '@firebase/storage';
 
 import { useHistory } from 'react-router';
 
-import { updateState, updateAlert, routeHome } from '../utilies';
+import { 
+    updateState, 
+    updateAlert, 
+    routeHome,
+    accountUpdated,
+    accountDeletem,
+} from '../utilies'
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
-      '& .MuiButton-root': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      }
-    },
-    snackbar: {
-        width: '100%',
-        '& > * + *': {
-        marginTop: theme.spacing(2),
-        },
-    },
-  }));
+import {
+    useStyles
+} from '../styles'
 
 const MyAccount = () => {
     const classes = useStyles();
@@ -76,104 +65,6 @@ const MyAccount = () => {
         }
     }, [signInCheckResult])
 
-    const onAccountUpdated = () => {
-        try {
-            if(account.authProvider && account.name){
-                const accountRef = doc(firestore, 'users', account.uid)
-
-                updateDoc(accountRef,{
-                    authProvider: account.authProvider,
-                    name: account.name
-                })
-                .then(resutl => {
-                    console.log('User successfully Updated')
-
-                    updateAlert(
-                        'success',
-                        'Account successfully Updated',
-                        true,
-                        alert,
-                        setAlert
-                    )
-                })
-                .catch(error => {
-                    console.error('Error on updating user')
-
-                    updateAlert(
-                        'error',
-                        'Account could not be updated. Please try again later',
-                        true,
-                        alert,
-                        setAlert
-                    )
-                })
-            }
-            else
-            {
-                console.log('AuthProvider & name must be provider')
-
-                updateAlert(
-                    'error',
-                    'AuthProvider & name must be provider !',
-                    true,
-                    alert,
-                    setAlert
-                )
-            }
-        } catch (error) {
-            console.error(error, 'err')
-
-            updateAlert(
-                'error',
-                'Something went wrong while trying to update the account. Try again later!',
-                true,
-                alert,
-                setAlert
-            )
-        }
-    }
-
-    const onAccountDelete = () => {
-        var imageExt = account?.imageExt;
-        if(imageExt != ''){
-            var storageInfo  =`images/${account.uid}/profile_image.${account.imageExt}`;
-            const imageRef = ref(storage, storageInfo)
-            deleteObject(imageRef)
-        }
-
-        if(account.uid)
-        {   
-            const accountRef = doc(firestore, 'users', account.uid)
-            var delDoc = deleteDoc(accountRef);
-        }
-
-        auth.currentUser.delete()
-        .then(result => {
-            console.log('Profile successfully delete')
-            
-            updateAlert(
-                'success',
-                'Profile successfully delete',
-                true,
-                alert,
-                setAlert
-            )
-        })
-        .catch(error => {
-            console.error('Error on delete Profile', error)
-
-            updateAlert(
-                'error',
-                'Profile was not successfully delete',
-                true,
-                alert,
-                setAlert
-            )
-        })
-
-        history.push('/')
-    }
-
     return (
         <CardLayout
             header={'My Account'}
@@ -190,8 +81,12 @@ const MyAccount = () => {
                 classes={classes}
                 value={account}
                 onChangeState={(e) => updateState(e, setAccount, account)}
-                onChangeAccount={onAccountUpdated}
-                onDeleteAccount={onAccountDelete}
+                onChangeAccount={() => {
+                    accountUpdated(firestore, account, alert, setAlert)
+                }}
+                onDeleteAccount={() => {
+                    accountDelete(storage, firestore, auth, account, alert, setAlert)
+                }}
             />
         </CardLayout>
     )
