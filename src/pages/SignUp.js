@@ -13,9 +13,12 @@ import {
     updateShowPassword, 
     handleMouseDownPassword, 
     routeHome,
-    createUser,
-    useStyles
+    createUser
 } from '../utilies';
+
+import {
+    useStyles
+} from '../styles';
 
 const SignUp = () => {
 const classes = useStyles();
