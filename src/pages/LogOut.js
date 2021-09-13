@@ -7,19 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom'
 
 import { CardLayout } from "../components/general";
+import { useStyles } from '../styles';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
-      '& .MuiButton-root': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      }
-    }
-  }));
 
 const LogOut = () => {
     const classes = useStyles();
