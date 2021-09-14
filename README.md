@@ -33,22 +33,30 @@
 -------- DB Structure --------
 - User
   - Password
-  - ProfileID
+  - AuthProvider
+  - ImageExt
+  - name
+  - uid
 
 - Profile
-  - CraateDateUtc
+  - CreateDateUtc
   - CreateBy
+  - ModifiedDateUtc
+  - ModifiedBy
   - DOB
   - Email
   - Bio
+  - DisplayName
 
 - Post
   - PostId
-  - Date
+  - CreateDateUtc
+  - CreateBy
+  - ModifiedDateUtc
+  - ModifiedBy
   - Title 
   - Text
   - Replied
-  - ProfileId
 
 - Like
   - PostId
@@ -56,8 +64,6 @@
 
 - Following
   - FollowingID
-  - ProfileId
 
 - Follower
   - FollowerID
-  - ProfileId

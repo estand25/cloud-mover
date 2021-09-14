@@ -3,13 +3,21 @@ import {
     createUserWithEmailAndPassword,
     updateProfile 
 } from 'firebase/auth'
+
 import { 
     doc, 
     updateDoc, 
     deleteDoc, 
     getDoc, 
-    setDoc 
+    getDocs,
+    setDoc,
+    addDoc,
+    collection,
+    serverTimestamp,
+    query,
+    where,
 } from 'firebase/firestore';
+
 import { 
     deleteObject, 
     ref, 
@@ -17,7 +25,9 @@ import {
     getDownloadURL 
 } from 'firebase/storage'
 
-import { makeStyles } from '@material-ui/core/styles';
+import {
+    defaultPost
+} from '../constant'
 
 const updateState = (e, onChange, state) => {
     var updateStates = Object.assign(state, {});
@@ -220,6 +230,35 @@ const updateProfileInfo = (firestore, storage, inUser, profile, fileName, alert,
             })
         }
 
+        const profileRef = doc(firestore, 'profiles', profile.uid)  
+
+        setDoc(profileRef,{
+            createDateUtc: serverTimestamp(),
+            createdBy: profile?.displayName ?? profile?.uid,
+            modifiedDateUtc: serverTimestamp(),
+            modifiedBy: profile?.displayName ?? profile?.uid,
+            dob: profile?.dob ?? new Date(),
+            bio: profile?.bio ?? ''
+        })
+        .then(result => {
+            updateAlert(
+                'success',
+                'Profile successfully Updated',
+                true,
+                alert,
+                setAlert
+            )
+        })
+        .catch(error => {
+            updateAlert(
+                'error',
+                'Profile updated was not successfully!',
+                true,
+                alert,
+                setAlert
+            )
+        })
+
         if(fileName && fileName?.name){
             // Extension of file
             var exten = fileName.name.split('.')[1]
@@ -364,6 +403,223 @@ const createUser = (auth, firestore, reg, alert, setAlert) => {
     }
 }
 
+const createPost = (firestore, user, setOpen, post, setPost, alert, setAlert) => {      
+    try{
+        if(post.title && post.text){
+            post.createDateUtc = serverTimestamp();
+            post.createBy = user.data.uid;
+            post.modifiedDateUtc = serverTimestamp();
+            post.modifiedBy = user.data.uid;
+            post.replied = 'initial';
+            post.favorite = false;
+    
+            const postRef = collection(firestore, 'posts')
+    
+            addDoc(postRef, {
+                createDateUtc: post.createDateUtc,
+                createBy: post.createBy,
+                modifiedDateUtc: post.modifiedDateUtc,
+                modifiedBy: post.modifiedBy,
+                title: post.title,
+                text: post.text,
+                replied: post.replied
+            })
+            .then(result => {
+                setPost(Object.assign({}, defaultPost))
+              
+                updateAlert(
+                    'success',
+                    'Post has been successfully created',
+                    true,
+                    alert,
+                    setAlert
+                )
+    
+                setOpen(false)
+            })
+            .catch(error => {
+                updateAlert(
+                    'error',
+                    'Post could not be created. Please try again later',
+                    true,
+                    alert,
+                    setAlert
+                )
+            })
+        }
+        else
+        {
+            updateAlert(
+                'error',
+                'Title and text must be provider !',
+                true,
+                alert,
+                setAlert
+            )               
+        }
+    }  catch (error) {
+        updateAlert(
+            'error',
+            'Post could not be created. Please try again later',
+            true,
+            alert,
+            setAlert
+        )
+    }
+}
+
+const onFavoriteChange = (firestore, id, favorite, alert, setAlert) => {
+    try {
+        const favorsRef = doc(firestore, 'posts', id)
+
+        updateDoc(favorsRef, {
+            favorite: favorite
+        })
+        .then(result => {
+            updateAlert(
+                'success',
+                'Post favorite status has been successfully updated',
+                true,
+                alert,
+                setAlert
+            )
+        })
+        .catch(error => {
+            updateAlert(
+                'error',
+                'Post favorite status updated has errored',
+                true,
+                alert,
+                setAlert
+            )
+
+        })
+    } catch (error) {
+        updateAlert(
+            'error',
+            'Post favorite status updated has errored',
+            true,
+            alert,
+            setAlert
+        )
+    }
+}
+
+const accountUseEffect = (firestore, user, account, setAccount) => {
+    if(user.data){
+        const userRef = doc(firestore, 'users', user?.data?.uid)
+
+        getDoc(userRef)
+            .then(result => {
+                var updAccount = {};
+                updAccount.authProvider = result?.data()?.authProvider ?? '';
+                updAccount.imageExt = result?.data()?.imageExt ?? '';
+                updAccount.name = result?.data()?.name ?? '';
+                updAccount.uid = result?.data()?.uid ?? '';
+
+                setAccount({...account,...updAccount})
+            })
+            .catch(error => {
+                console.log('UseEffect Account Error', error)
+            })
+    }
+}
+
+const profileUseEffect = (firestore, user, profile, setProfile, setPreview) => {
+    if(user.data){                       
+        var updProfile = {};
+        updProfile.displayName = user?.data?.displayName ?? '';
+        updProfile.email = user?.data?.email ?? '';
+        updProfile.photoURL = user?.data?.photoURL ?? '';
+        updProfile.uid = user?.data?.uid ?? ''
+
+        setProfile({
+            ...profile,
+            ...updProfile
+        })
+
+        const profileRef = doc(firestore, 'profiles', user?.data?.uid)
+
+        getDoc(profileRef)
+            .then(result => {
+                var updProfile2 = Object.assign(updProfile, {})
+
+                updProfile2.createDateUtc = result?.data()?.createDateUtc ?? '';
+                updProfile2.createdBy = result?.data()?.createdBy ?? '';
+                updProfile2.modifiedDateUtc = result?.data()?.modifiedDateUtc ?? '';
+                updProfile2.modifiedBy = result?.data()?.modifiedBy ?? '';
+                updProfile2.dob =  result?.data()?.dob ?? new Date();
+                updProfile2.bio = result?.data()?.bio ?? ''
+
+                setProfile({
+                    ...profile,
+                    ...updProfile2
+                })
+            })
+            .catch(error => {
+                console.log('UseEffect Account Error', error)
+            })
+
+        setPreview(updProfile.photoURL)
+    }
+}
+
+const postsUseEffect = (firestore, user, setList) => {
+    if(user.data){
+        const postQuery = query(
+            collection(firestore, 'posts'),
+            where("createBy", "==", user.data.uid)
+        )
+
+        var newList = []
+        getDocs(postQuery)
+            .then(doc_ => {
+                doc_.forEach((iDoc) => {
+                    var newPost = iDoc.data();
+                    newPost.id = iDoc.id;
+                    newList.push(newPost)
+                    // console.log('post',newPost )
+                })
+                setList(newList)
+            })
+    }
+}
+
+const editPost = (firestore, user, post, alert, setAlert) => {
+    try {
+        if(post.title && post.text){
+            console.log('Updated Post', post)
+            const postRef = doc(firestore, 'posts', post.id)
+            console.log('post ref', postRef)
+
+            updateDoc(postRef, {
+                modifiedDateUtc: serverTimestamp(),
+                modifiedBy: user.data.uid,
+                title: post.title,
+                text: post.text,
+                replied: post.replied
+            })
+            .then(result => {
+                updateAlert(
+                    'success',
+                    'Post has been successfully updated',
+                    true,
+                    alert,
+                    setAlert
+                )
+            })
+        }
+    }  catch (error) {
+        updateAlert(
+            'error',
+            'Post could not be created. Please try again later',
+            true,
+            alert,
+            setAlert
+        )
+    }
+}
+
 export {
     updateState,
     updateAlert,
@@ -373,7 +629,13 @@ export {
     logIn,
     accountUpdated,
     accountDelete,
+    accountUseEffect,
     uploadImage,
     updateProfileInfo,
-    createUser
+    createUser,
+    createPost,
+    onFavoriteChange,
+    profileUseEffect,
+    postsUseEffect,
+    editPost
 }

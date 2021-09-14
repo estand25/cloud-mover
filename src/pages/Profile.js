@@ -1,99 +1,93 @@
 import React, {useEffect, useState} from 'react'
-import { useSigninCheck, useStorage, useFirestore } from "reactfire";
+import { useStorage, useFirestore, useUser } from "reactfire";
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom'
 
 import { ProfileUser } from '../components/account';
 import { CardLayoutWithMedia, SnackBarHolder } from "../components/general";
 
+import {Paper, Grid} from '@material-ui/core';
+
 import { 
     updateState, 
     updateAlert, 
-    routeHome,
     uploadImage,
-    updateProfileInfo
+    updateProfileInfo,
+    profileUseEffect
 } from '../utilies'
 
 import {
     useStyles
 } from '../styles'
 
+import PostForm from '../components/post/PostForm'
+
+import {
+    defaultProfile,
+    defaultAlert
+} from '../constant'
+
 const Profile = () => {
     const classes = useStyles();
     const storage = useStorage();
     const firestore = useFirestore();
-    const history = useHistory();
+    const user = useUser();
 
-    const {state: signInState, data: signInCheckResult} = useSigninCheck();
-    const {user: inUser} = signInCheckResult ? signInCheckResult : {}
     const [fileName, setFileName] = useState({})
     const [preview, setPreview] = useState('')
 
-    const [profile, setProfile] = useState({
-        displayName: inUser?.displayName ?? '',
-        email: inUser?.email ?? '',
-        photoURL: inUser?.photoURL ?? '',
-        uid: inUser?.uid ?? ''
-    })
-    
-    const [alert, setAlert] = useState({
-        severity: '',
-        text: '',
-        open: false
-    })
+    const [profile, setProfile] = useState(defaultProfile)
+    const [alert, setAlert] = useState(defaultAlert)
 
     useEffect(() => {
-        if(typeof(signInCheckResult?.user) !== 'undefined'){           
-            var { user } = signInCheckResult
-            console.log('useEffect', user)
-            var updProfile = {};
-            updProfile.displayName = user?.displayName ?? '';
-            updProfile.email = user?.email ?? '';
-            updProfile.photoURL = user?.photoURL ?? '';
-            updProfile.uid = user?.uid ?? ''
+        profileUseEffect(firestore, user, profile, setProfile, setPreview)
+    }, [user.data])
 
-            setProfile({
-                ...profile,
-                ...updProfile
-            })
-
-            setPreview(updProfile.photoURL)
-        }
-    }, [signInCheckResult])
-
-    if(signInState === 'loading'){
+    if(!profile.email){
         return <CircularProgress color="inherit" />
     }
 
     return (
-        <CardLayoutWithMedia
-            header={'Profile'}
-            image={preview}
-            title={''}
-        >
-            <SnackBarHolder
-                classes={classes}
-                alert={alert}
-                onHandleClose={() => {
-                    updateAlert(null, null, !alert.open, alert, setAlert)
-                    routeHome(alert, history)
-                }}
-            />
-            <ProfileUser
-                classes={classes}
-                signInCheckResult={typeof(signInCheckResult?.user) !== 'undefined'}
-                value={profile}
-                onChangeState={(e) => updateState(e, setProfile, profile)}
-                onChangeImage={(e) => uploadImage(e, setFileName, setPreview)}
-                file={fileName}
-                previewImageUrl={preview}
-                onSubmit={() => {
-                    updateProfileInfo(firestore, storage, inUser, profile, fileName, alert, setAlert)
-                }}
-            />
-        </CardLayoutWithMedia>
+        <div style={{margin: '1px', padding:'5px'}}>
+            <Grid container spacing={3}>
+                <Grid item xs={4}>
+                    <Paper className={classes.paper}>
+                        <CardLayoutWithMedia
+                            header={'Profile'}
+                            image={preview}
+                            title={''}
+                        >
+                            <SnackBarHolder
+                                classes={classes}
+                                alert={alert}
+                                onHandleClose={() => {
+                                    updateAlert(null, null, !alert.open, alert, setAlert)
+                                }}
+                            />
+                            <ProfileUser
+                                classes={classes}
+                                signInCheckResult={(user.data)}
+                                value={profile}
+                                onChangeState={(e) => updateState(e, setProfile, profile)}
+                                onChangeImage={(e) => uploadImage(e, setFileName, setPreview)}
+                                file={fileName}
+                                previewImageUrl={preview}
+                                onSubmit={() => {
+                                    updateProfileInfo(firestore, storage, user.data, profile, fileName, alert, setAlert)
+                                }}
+                            />
+                        </CardLayoutWithMedia>
+                    </Paper>
+                </Grid>
+                <PostForm 
+                    classes={classes}
+                    firestore={firestore}
+                    alert={alert}
+                    setAlert={setAlert}
+                />
+            </Grid>
+    </div>
+    
     )
 }
 

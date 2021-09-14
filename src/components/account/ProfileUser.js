@@ -46,6 +46,32 @@ const ProfileUser = ({classes, signInCheckResult, value, onChangeState, onChange
                     />
                 </div>
                 <div>
+                <TextField
+                    id="outlined-Bio"
+                    label="Bio"
+                    name="bio"
+                    multiline
+                    rows={4}
+                    value={value.bio}
+                    variant="outlined"
+                    onChange={onChangeState}
+                />
+                </div>
+                <div>
+                <TextField
+                    id="outline-DOB"
+                    name='dob'
+                    label="Birthday"
+                    type="date"
+                    value={value.dob}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={onChangeState}
+                />
+                </div>
+                <div>
                     <Button variant="outlined" onClick={onSubmit}>
                         Update Profile
                     </Button>
