@@ -3,9 +3,11 @@ import { render } from '@testing-library/react'
 import { AccountIcon } from '../../../src/components/account'
 import * as reactFire from 'reactfire'
 
-jest.mock("reactfire", () => ({
-    useSigninCheck: jest.fn()
-}))
+jest.mock("reactfire", () => {
+    return {
+        useSigninCheck:  jest.fn(),
+    }
+})
 
 describe('Testing AccountIcon without data present', () => {
     beforeEach(() => {

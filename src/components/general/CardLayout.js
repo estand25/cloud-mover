@@ -5,18 +5,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { makeStyles } from '@material-ui/core/styles';
+import {
+    useStyles
+} from '../../styles'
 
-const useStyles = makeStyles((theme) => ({
-    card: {
-        maxWidth: 345,  
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center"
-      }
-  }));
 const CardLayout = (props) => {
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <Box

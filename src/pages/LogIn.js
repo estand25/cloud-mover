@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 
 import { useAuth } from "reactfire";
 import { useHistory } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
 
 import { LogInUser } from '../components/account';
 import { CardLayout, SnackBarHolder } from '../components/general';
@@ -19,22 +18,18 @@ import {
     useStyles
 } from '../styles'
 
+import {
+    defaultLogIn, 
+    defaultAlert
+} from '../constant'
+
 const LogIn = () => {
     const classes = useStyles();
     const auth = useAuth()
     const history = useHistory()
     
-    const [logInObj, setLogIn] = useState({
-        email: '',
-        password: '',
-        showPassword: false
-    })
-
-    const [alert, setAlert] = useState({
-        severity: '',
-        text: '',
-        open: false
-    })
+    const [logInObj, setLogIn] = useState(defaultLogIn)
+    const [alert, setAlert] = useState(defaultAlert)
 
     return (
         <CardLayout

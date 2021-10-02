@@ -11,10 +11,25 @@ const useStyles = makeStyles((theme) => ({
           width: '25ch',
         }
       },
+    SubGrid:{
+        '& .MuiGrid-root':{
+            margin: "25px"
+        }
+    },
     card: {
         maxWidth: 345,  
         display:"flex",
         justifyContent:"center",
+        alignItems:"center"
+    },
+    post: {
+        minWidth: 300,
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    media: {
+        height: 200,
+        borderRadius: '50%',
         alignItems:"center"
     },
     header: {
@@ -40,6 +55,11 @@ const useStyles = makeStyles((theme) => ({
         width: '25ch',
         alignItems: 'center'
     },
+    paper: {
+        padding:  theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+      },
 }))
 
 export {

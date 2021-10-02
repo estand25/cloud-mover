@@ -3,12 +3,10 @@ import { LogOutUser } from "../components/account";
 
 import { useAuth } from "reactfire";
 import { signOut } from 'firebase/auth'
-import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom'
 
 import { CardLayout } from "../components/general";
 import { useStyles } from '../styles';
-
 
 const LogOut = () => {
     const classes = useStyles();

@@ -3,22 +3,13 @@ import { render } from '@testing-library/react'
 import { LogOut } from '../../src/pages'
 import * as reactFire from 'reactfire'
 
-jest.mock("reactfire", () => ({
-    useAuth: jest.fn()
-}))
+jest.mock("reactfire", () => {
+    return {
+        useAuth: jest.fn(),
+    }
+})
 
-
-describe('Testing with positive param', () => {
-    beforeEach(() => {
-        useAuthMock.mockImplementation(() => () => { });
-    })
-
-    afterEach(() => {
-        useAuthMock.mockClear();
-    })
-
-    const useAuthMock = reactFire.useAuth;
-    
+describe('Testing with positive param', () => {    
     it('Render without crashing', () => {
         const logOut = render(
             <LogOut />
