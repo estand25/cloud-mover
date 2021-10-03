@@ -31,9 +31,15 @@ describe('Testing AccountIcon without data present', () => {
 
 describe('Testing AccountIcon with Sign In and signIn true', () => {
     beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => () => { 
-            data: {
-                signedIn: true
+        useSigninCheckMock.mockImplementation(() => { 
+            return {
+                signedIn:  jest.fn().mockResolvedValue({
+                    signedIn: true,
+                    user: {
+                        displayName: "fakeUid",
+                        photoURL: 'https://images.freeimages.com/images/large-previews/a35/wire-1230667.jpg'
+                     },
+                   }),
             }
         });
     })
