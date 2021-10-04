@@ -6,10 +6,6 @@ import {
 } from 'react-router-dom'
 
 import {
-    AccountInfo
-} from '../components/account'
-
-import {
     FrontPage,
     LogIn,
     LogOut,

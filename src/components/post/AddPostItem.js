@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import { useUser } from "reactfire";
 
 import PostArea from './PostArea';
 
@@ -12,8 +11,7 @@ import {
     defaultPost
 } from '../../constant'
 
-const AddPostItem = ({classes, firestore, alert, setAlert}) => {
-    const user = useUser()
+const AddPostItem = ({classes, firestore, user, alert, setAlert}) => {
     const [open, setOpen] = useState(true)
     const [post, setPost] = useState(Object.assign({}, defaultPost))
 

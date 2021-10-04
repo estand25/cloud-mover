@@ -1,17 +1,15 @@
 import React from 'react'
-import { useSigninCheck } from "reactfire";
 import Avatar from '@material-ui/core/Avatar';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-const AccountIcon = () => {
-    const {data: signInCheckResult} = useSigninCheck();
+const AccountIcon = ({IsSignIn, user}) => {
     
-    if(!signInCheckResult || !signInCheckResult.signedIn){
+    if(!IsSignIn){
         return <AccountCircle style={{ fontSize: 40 }}/>
     }
     else
     {
-        return <Avatar alt={signInCheckResult?.user?.displayName} src={signInCheckResult?.user?.photoURL} />
+        return <Avatar alt={user?.displayName} src={user?.photoURL} />
     }
 }
 

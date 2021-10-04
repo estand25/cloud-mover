@@ -5,7 +5,7 @@ import {Paper, Grid} from '@material-ui/core';
 import AddPostItem from './AddPostItem'
 import Posts from './Posts'
 
-const PostForm = ({classes, firestore, alert, setAlert}) => {
+const PostForm = ({classes, firestore, user, alert, setAlert}) => {
     return (
         <Grid
             item 
@@ -25,6 +25,7 @@ const PostForm = ({classes, firestore, alert, setAlert}) => {
                         <AddPostItem
                             classes={classes}
                             firestore={firestore}
+                            user={user}
                             alert={alert}
                             setAlert={setAlert}
                         />
@@ -33,6 +34,7 @@ const PostForm = ({classes, firestore, alert, setAlert}) => {
                 <Posts
                     classes={classes}
                     firestore={firestore}
+                    user={user}
                     alert={alert}
                     setAlert={setAlert}
                 />

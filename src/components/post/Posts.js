@@ -1,5 +1,4 @@
 import React, { useEffect, useState} from 'react'
-import { useUser } from 'reactfire'
 
 import Post from './Post'
 
@@ -10,8 +9,7 @@ import {
     postsUseEffect
 } from '../../utilies'
 
-const Posts = ({classes, firestore, alert, setAlert}) => {
-    const user = useUser()
+const Posts = ({classes, firestore, user, alert, setAlert}) => {
     const [list, setList] = useState([])
 
     useEffect(() => {

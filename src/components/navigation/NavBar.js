@@ -1,5 +1,4 @@
 import React from 'react';
-import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,99 +9,102 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 import { NavBarAvatar, NavBarLogo } from '.';
+import { useHistory } from "react-router-dom"
 
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
-}));
+import {
+  useStyles
+} from '../../styles'
 
 //https://material-ui.com/components/app-bar/
 const NavBar = () => {
+  const history = useHistory()
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const menuId = 'primary-search-account-menu';
-
   const mobileMenuId = 'primary-search-account-menu-mobile';
+  const home = () => history.push('/')
+
+  const BadgeIconNumber = (props) => {
+    return (
+      <IconButton aria-label="show number new mails" color="inherit">
+        <Badge badgeContent={props?.count ?? 0} color="secondary">
+          {props.children}
+        </Badge>
+      </IconButton>
+    )
+  }
+
+  const MainNavBar = ({classes, mailCount, notificationCount}) => {
+    return (
+      <div className={classes.sectionDesktop}>
+        <BadgeIconNumber
+          count={mailCount}
+        >
+          <MailIcon />
+        </BadgeIconNumber>
+        <BadgeIconNumber
+          count={notificationCount}
+        >
+          <NotificationsIcon />
+        </BadgeIconNumber>
+        <NavBarAvatar/>
+      </div>
+    )
+  }
+
+  const MainNavLogoSection = ({classes, onHome}) => {
+    return (
+      <div>
+          <NavBarLogo 
+            onHome={onHome}
+          />
+          <Typography className={classes.title} variant="h6" noWrap>
+            Cloud-Mover
+          </Typography>      
+      </div>
+    )
+  }
+
+  const MainNavMobile = ({classes, onMobileMenuId, onHandleMobileMenuOpen}) => {
+    return (
+      <div className={classes.sectionMobile}>
+        <IconButton
+          aria-label="show more"
+          aria-controls={onMobileMenuId}
+          aria-haspopup="true"
+          onClick={onHandleMobileMenuOpen}
+          color="inherit"
+        >
+          <MoreIcon />
+          <NavBarAvatar/>
+        </IconButton>
+      </div>
+    )
+  }
 
   return (
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <NavBarLogo />
-          <Typography className={classes.title} variant="h6" noWrap>
-            Cloud-Mover
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <NavBarAvatar/>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-              <NavBarAvatar/>
-            </IconButton>
-          </div>
+          <MainNavLogoSection
+            classes={classes}
+            onHome={home}
+          />
+          <div className={classes.grow} />  
+          <MainNavBar
+            classes={classes}
+            mailCount={0}
+            notificationCount={0}
+          />
+          <MainNavMobile
+            classes={classes}
+            onMobileMenuId={mobileMenuId}
+            onHandleMobileMenuOpen={handleMobileMenuOpen}
+          />
         </Toolbar>
       </AppBar>
     </div>

@@ -1,5 +1,5 @@
-import React, { useState} from 'react'
-import { useSigninCheck } from 'reactfire';
+import React, { useEffect, useState} from 'react'
+import { useUser } from 'reactfire';
 
 import IconButton from '@material-ui/core/IconButton';
 import MuiMenu from './MuiMenu'
@@ -10,13 +10,17 @@ import { useHistory } from "react-router-dom"
 
 const NavBarAvatar = () => {
     const history = useHistory()  
+    const user = useUser()
     const [anchorEl, setAnchorEl] = useState(null);
+    const [IsSignIn, setIsSignIn] = useState(false)
   
     const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
 
-    const {data: signInCheckResult} = useSigninCheck();
-
+    useEffect(() => {
+      setIsSignIn(user)
+    },[user.data])
+    
     const onMenuHandler = (rte) => {
       history.push(rte)
       handleClose()
@@ -28,7 +32,7 @@ const NavBarAvatar = () => {
       });
     }
 
-    const layout = !signInCheckResult || !signInCheckResult.signedIn ? 
+    const layout = !IsSignIn ? 
     {
       method: handleClick,
       menuOptions: [
@@ -49,11 +53,15 @@ const NavBarAvatar = () => {
     return (
       <div>
         <IconButton
+          id="iconBtn"
           edge="end"
           color="inherit"
           onClick={layout.method}
         >
-          <AccountIcon/>
+          <AccountIcon
+            IsSignIn={IsSignIn}
+            user={IsSignIn ? user?.data : {}}
+          />
         </IconButton>      
         <MuiMenu
           id="mini-menu"

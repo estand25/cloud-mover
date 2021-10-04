@@ -39,6 +39,10 @@ const Profile = () => {
     const [profile, setProfile] = useState(defaultProfile)
     const [alert, setAlert] = useState(defaultAlert)
 
+    const errorMessage = {
+        displayName: 'Display name is required'
+    }
+    
     useEffect(() => {
         profileUseEffect(firestore, user, profile, setProfile, setPreview)
     }, [user.data])
@@ -82,6 +86,7 @@ const Profile = () => {
                 <PostForm 
                     classes={classes}
                     firestore={firestore}
+                    user={user}
                     alert={alert}
                     setAlert={setAlert}
                 />
