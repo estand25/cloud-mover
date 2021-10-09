@@ -10,6 +10,12 @@ jest.mock("reactfire", () => {
                 uid: "fakeUid",
              },
            }),
+           
+        useUser:  jest.fn().mockResolvedValue({
+            user: {
+                data: "fakeUid",
+             },
+           }),
     }
 })
 

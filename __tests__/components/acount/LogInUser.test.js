@@ -24,17 +24,38 @@ describe('Testing with Positive param', () => {
               textAlign: 'center'
           }
     }
-    const logInObj = {
-        email: '',
-        password: '',
-        showPassword: false
-    }
     const logIn = () => {}
     const updateState = (value, targetField) => {}
     const updateShowPassword = () => {}
     const handleMouseDownPassword = () => {}
 
-    it('render without crashing', () => {
+    it('render without crashing without any logIn Info', () => {
+        const logInObj = {
+            email: '',
+            password: '',
+            showPassword: false
+        }
+
+        const logIn_ = render(
+            <LogInUser
+                classes={classes}
+                value={logInObj}
+                onChange={updateState}
+                onChangeShowPassword={updateShowPassword}
+                onChangeMouseShowPassword={handleMouseDownPassword}
+                onLogIn={logIn}
+            />
+        )
+
+        expect(logIn_).toBeTruthy();
+    })
+    it('render without crashing with logIn Info', () => {
+        const logInObj = {
+            email: 'email',
+            password: '1234568',
+            showPassword: false
+        }
+
         const logIn_ = render(
             <LogInUser
                 classes={classes}

@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { PostItem } from '../../../src/components/post'
-import { defaultPost } from '../../../src/constant'
 
 import * as reactFire from 'reactfire'
 
@@ -24,7 +23,7 @@ describe('Testing with positive param for PostItem', () => {
         return [getValue, setValue];
     }
 
-    it('render without crashing', () => {
+    it('render without crashing with favorite false', () => {
         const [alert, setAlert] = useObjectState({
             severity: 'error',
             text: 'test1',
@@ -35,6 +34,37 @@ describe('Testing with positive param for PostItem', () => {
         const id = 1;
         const title = 'title';
         const favorite = false;
+        const text = 'test';
+        const setEdit = () => {}
+
+        const postItem = render(
+            <PostItem
+                id={id}
+                title={title}
+                favorite={favorite}
+                alert={alert}
+                setAlert={setAlert}
+                firestore={firestore}
+                setEdit={setEdit}
+            >
+                <div>{text}</div>
+            </PostItem>
+        )
+
+        expect(postItem).toBeTruthy();
+    })
+    
+    it('render without crashing with favorite true', () => {
+        const [alert, setAlert] = useObjectState({
+            severity: 'error',
+            text: 'test1',
+            open: false
+        })
+
+        const firestore = reactFire.useFirestore()
+        const id = 1;
+        const title = 'title';
+        const favorite = true;
         const text = 'test';
         const setEdit = () => {}
 

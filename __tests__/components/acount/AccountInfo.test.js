@@ -27,7 +27,7 @@ it('render without crashing', () => {
 
     const updateState = (e) => { }
     const onAccountUpdate = () => {}
-    const onAccountDelete = async () => {}
+    const onAccountDelete = () => {}
 
     const accountInfo = render(
         <AccountInfo

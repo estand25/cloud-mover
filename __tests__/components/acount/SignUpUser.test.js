@@ -35,7 +35,38 @@ describe('Testing with Positive param', () => {
     const updateShowPassword = () => {}
     const handleMouseDownPassword = () => {}
 
-    it('render without crashing', () => {
+    it('render without crashing without sign-In object', () => {
+        
+        const signUpObj = {
+            email: '',
+            password: '',
+            name: '',
+            showPassword: false
+        }
+
+        const signUpUser = render(
+            <SignUpUser
+                classes={classes}
+                onChangeState={updateState}
+                value={signUpObj}
+                onChangeShowPassword={updateShowPassword}
+                onChangeMouseShowPassword={handleMouseDownPassword}
+                onSubmit={onSubmit}
+            />
+        )
+
+        expect(signUpUser).toBeTruthy();
+    })
+    
+    it('render without crashing with sign-In object', () => {
+        
+        const signUpObj = {
+            email: 'email',
+            password: '123456',
+            name: 'name',
+            showPassword: false
+        }
+
         const signUpUser = render(
             <SignUpUser
                 classes={classes}

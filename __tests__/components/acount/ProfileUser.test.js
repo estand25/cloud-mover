@@ -2,19 +2,10 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { ProfileUser } from '../../../src/components/account'
 
-
 describe('Testing with Positive param', () => {
     const classes = {
         marginPhoto: {},
         textFieldPhoto: {}
-    }
-
-    const profile = {
-        displayName: '',
-        email: '',
-        phoneNumber: '',
-        photoURL: '',
-        uid: ''
     }
 
     const fileName = {
@@ -26,7 +17,15 @@ describe('Testing with Positive param', () => {
     const uploadImage = (event) => {}
     const updateProfileInfo = () => {}
 
-    it('render without crashing with false SignCheckResult', () => {
+    it('render without crashing with false SignCheckResult', () => {   
+        const profile = {
+            displayName: '',
+            email: '',
+            phoneNumber: '',
+            photoURL: '',
+            uid: ''
+        }
+
         const profileUser = render(
             <ProfileUser
                 classes={classes}
@@ -43,7 +42,15 @@ describe('Testing with Positive param', () => {
         expect(profileUser).toBeTruthy();
     })
 
-    it('render without crashing with true SignCheckResult', () => {
+    it('render without crashing with true SignCheckResult', () => { 
+        const profile = {
+            displayName: '',
+            email: '',
+            phoneNumber: '',
+            photoURL: '',
+            uid: ''
+        }
+
         const profileUser = render(
             <ProfileUser
                 classes={classes}
@@ -60,10 +67,43 @@ describe('Testing with Positive param', () => {
         expect(profileUser).toBeTruthy();
     })
 
-    it('render without crashing with  blank SignCheckResult', () => {
+    it('render without crashing with  blank SignCheckResult', () => { 
+        const profile = {
+            displayName: '',
+            email: '',
+            phoneNumber: '',
+            photoURL: '',
+            uid: ''
+        }
+
         const profileUser = render(
             <ProfileUser
                 classes={classes}
+                value={profile}
+                onChangeState={updateState}
+                onChangeImage={uploadImage}
+                file={fileName}
+                previewImageUrl={preview}
+                onSubmit={updateProfileInfo}
+            />
+        )
+
+        expect(profileUser).toBeTruthy();
+    })
+
+    it('render without crashing with profile info', () => { 
+        const profile = {
+            displayName: 'dispplay',
+            email: 'email@email.com',
+            phoneNumber: '4843693092',
+            photoURL: 'httll',
+            uid: 'fakeid'
+        }
+
+        const profileUser = render(
+            <ProfileUser
+                classes={classes}
+                signInCheckResult={true}
                 value={profile}
                 onChangeState={updateState}
                 onChangeImage={uploadImage}

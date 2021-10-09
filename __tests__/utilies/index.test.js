@@ -9,7 +9,10 @@ import {
     accountDelete,
     uploadImage,
     updateProfileInfo,
-    createUser
+    createUser,
+    accountUseEffect,
+    profileUseEffect,
+    postsUseEffect
  } from '../../src/utilies'
  import * as reactFire from 'reactfire'
  import * as firebaseAuth from 'firebase/auth'
@@ -53,7 +56,12 @@ jest.mock("firebase/firestore", () => {
             data: 'xxxxx'
         }),
         getDoc: jest.fn().mockResolvedValue({
-            data: jest.fn()
+            data: jest.fn().mockResolvedValue({
+                authProvider: "email",
+                imageExt: 'test.jpg',
+                name: 'Test',
+                uid: 'fakeId'
+            })
         }),
         updateDoc: jest.fn().mockResolvedValue({
             data: jest.fn()
@@ -64,6 +72,17 @@ jest.mock("firebase/firestore", () => {
         setDoc: jest.fn().mockResolvedValue({
             data: jest.fn()
         }),
+        getDocs: jest.fn().mockResolvedValue({
+            data: jest.fn().mockResolvedValue([{
+                authProvider: "email",
+                imageExt: 'test.jpg',
+                name: 'Test',
+                uid: 'fakeId'
+            }])
+        }),
+        query: jest.fn(),
+        collection: jest.fn(),
+        where: jest.fn()
     }
 })
 
@@ -93,7 +112,11 @@ describe('Testing utility function', () => {
     const useObjectState = (defaultValue) => {
         let value = Object.assign(defaultValue,{})
         const getValue = value
-        const setValue = newValue => value = newValue
+        // console.log('useObjectState', value)
+        const setValue = newValue => {
+            // console.log('useObjectState', newValue)
+            value = newValue
+        }
         return [getValue, setValue];
     }
 
@@ -551,5 +574,84 @@ describe('Testing utility function', () => {
         expect(firebaseAuth.createUserWithEmailAndPassword).toHaveBeenCalled();
         expect(firebaseStore.doc).toHaveBeenCalled();
         expect(firebaseStore.setDoc).toHaveBeenCalled();
+    })
+
+    it('Testing accountUseEffect with valid inputs', () => {
+        const [actual, onChangeState] = useObjectState({
+            authProvider: 'local',
+            name: 'test',
+            imageExt: 'png',
+            uid: 'xxxx'
+        })
+
+        const user ={
+            data: {
+                uid: 'fakeid'
+            }
+        }
+
+        const firestore = reactFire.useFirestore();
+
+        accountUseEffect(
+            firestore,
+            user,
+            actual,
+            onChangeState
+        )
+
+        expect(firebaseStore.getDoc).toHaveBeenCalled();
+    })
+
+    it('Testing profileUseEffect with valid inputs', () => {
+        const [actual, onChangeState] = useObjectState({
+            authProvider: 'local',
+            name: 'test',
+            imageExt: 'png',
+            uid: 'xxxx'
+        })
+        
+        const user ={
+            data: {
+                uid: 'fakeid'
+            }
+        }
+
+        const firestore = reactFire.useFirestore();
+        const setPreview = jest.fn()
+
+        profileUseEffect(
+            firestore,
+            user,
+            actual,
+            onChangeState,
+            setPreview
+        )
+
+        expect(firebaseStore.doc).toHaveBeenCalled();
+        expect(firebaseStore.getDoc).toHaveBeenCalled();
+        expect(setPreview).toHaveBeenCalled();
+    })
+
+    it('Testing postsUseEffect with valid inputs', () => {
+        const user ={
+            data: {
+                uid: 'fakeid'
+            }
+        }
+
+        const firestore = reactFire.useFirestore();
+        const setList = jest.fn()
+
+        postsUseEffect(
+            firestore,
+            user,
+            setList
+        )
+
+        expect(firebaseStore.query).toHaveBeenCalled();
+        expect(firebaseStore.collection).toHaveBeenCalled();
+        expect(firebaseStore.where).toHaveBeenCalled();
+        expect(firebaseStore.getDocs).toHaveBeenCalled();
+        // expect(setList).toHaveBeenCalled();
     })
 })

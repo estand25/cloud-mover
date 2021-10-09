@@ -16,6 +16,38 @@ jest.mock("reactfire", () => {
     }
 })
 
+
+jest.mock("firebase/firestore", () => {
+    return {
+        doc: jest.fn().mockResolvedValue({
+            data: 'xxxxx'
+        }),
+        getDoc: jest.fn().mockResolvedValue({
+            data: jest.fn().mockResolvedValue({
+                authProvider: "email",
+                imageExt: 'test.jpg',
+                name: 'Test',
+                uid: 'fakeId'
+            })
+        }),
+        updateDoc: jest.fn().mockResolvedValue({
+            data: jest.fn()
+        }),
+        deleteDoc: jest.fn().mockResolvedValue({
+            data: jest.fn()
+        }),
+        setDoc: jest.fn().mockResolvedValue({
+            data: jest.fn()
+        }),
+        getDocs: jest.fn().mockResolvedValue({
+            data: [{}]
+        }),
+        query: jest.fn(),
+        collection: jest.fn(),
+        where: jest.fn()
+    }
+})
+
 describe('Testing with positive param for posts', () => {
     const classes = {
         card: {},
@@ -40,7 +72,9 @@ describe('Testing with positive param for posts', () => {
         const [post, setPost] = useObjectState(Object.assign({}, defaultPost))
 
         const firestore = reactFire.useFirestore()
-        const user = reactFire.useUser()
+        const user = {
+            data: {}
+        }
 
         const postRender = render(
             <Post

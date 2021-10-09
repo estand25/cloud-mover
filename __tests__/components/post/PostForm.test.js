@@ -1,8 +1,13 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { PostForm } from '../../../src/components/post'
-
 import * as reactFire from 'reactfire'
+
+jest.mock("../../../src/utilies", () => {
+    return {
+        postsUseEffect: jest.fn()
+    }
+})
 
 jest.mock("reactfire", () => {
     return {
@@ -37,12 +42,17 @@ describe('Testing with positive param for PostForm', () => {
             open: false
         })
 
+        const user = {
+            data: {}
+        }
+
         const firestore = reactFire.useFirestore()
 
         const postForm = render(
             <PostForm
                 classes={classes}
                 firestore={firestore}
+                user={user}
                 alert={alert}
                 setAlert={setAlert}
             />

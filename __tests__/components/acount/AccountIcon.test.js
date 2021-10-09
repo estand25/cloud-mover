@@ -5,21 +5,15 @@ import * as reactFire from 'reactfire'
 
 jest.mock("reactfire", () => {
     return {
-        useSigninCheck:  jest.fn(),
+        useUser:  jest.fn().mockResolvedValue({
+            user: {
+                data: "fakeUid",
+             },
+           }),
     }
 })
 
 describe('Testing AccountIcon without data present', () => {
-    beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => () => { });
-    })
-
-    afterEach(() => {
-        useSigninCheckMock.mockClear();
-    })
-
-    const useSigninCheckMock = reactFire.useSigninCheck;
-
     it('render without crashing', () => {
         const accountIcon = render(
             <AccountIcon />
@@ -30,99 +24,29 @@ describe('Testing AccountIcon without data present', () => {
 })
 
 describe('Testing AccountIcon with Sign In and signIn true', () => {
-    beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => { 
-            return {
-                signedIn:  jest.fn().mockResolvedValue({
-                    signedIn: true,
-                    user: {
-                        displayName: "fakeUid",
-                        photoURL: 'https://images.freeimages.com/images/large-previews/a35/wire-1230667.jpg'
-                     },
-                   }),
-            }
-        });
-    })
-
-    afterEach(() => {
-        useSigninCheckMock.mockClear();
-    })
-
-    const useSigninCheckMock = reactFire.useSigninCheck;
+    const user = {
+        displayName: "fakeUid",
+        photoURL: 'https://images.freeimages.com/images/large-previews/a35/wire-1230667.jpg'
+     }
 
     it('render without crashing', () => {
         const accountIcon = render(
-            <AccountIcon />
+            <AccountIcon 
+                IsSignIn={true}
+                user={user}
+            />
         )
 
         expect(accountIcon).toBeTruthy();
     })
 })
 
-describe('Testing AccountIcon with Sign In and signIn true', () => {
-    beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => () => { 
-            data: {
-                signedIn: false
-            }
-        });
-    })
-
-    afterEach(() => {
-        useSigninCheckMock.mockClear();
-    })
-
-    const useSigninCheckMock = reactFire.useSigninCheck;
-
+describe('Testing AccountIcon with Sign In and signIn false', () => {
     it('render without crashing', () => {
         const accountIcon = render(
-            <AccountIcon />
-        )
-
-        expect(accountIcon).toBeTruthy();
-    })
-})
-
-describe('Testing AccountIcon with Sign In and signIn null', () => {
-    beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => () => { 
-            data: {
-                signedIn: null
-            }
-        });
-    })
-
-    afterEach(() => {
-        useSigninCheckMock.mockClear();
-    })
-
-    const useSigninCheckMock = reactFire.useSigninCheck;
-
-    it('render without crashing', () => {
-        const accountIcon = render(
-            <AccountIcon />
-        )
-
-        expect(accountIcon).toBeTruthy();
-    })
-})
-
-describe('Testing AccountIcon with data present, but null', () => {
-    beforeEach(() => {
-        useSigninCheckMock.mockImplementation(() => () => { 
-            data: {}
-        });
-    })
-
-    afterEach(() => {
-        useSigninCheckMock.mockClear();
-    })
-
-    const useSigninCheckMock = reactFire.useSigninCheck;
-
-    it('render without crashing', () => {
-        const accountIcon = render(
-            <AccountIcon />
+            <AccountIcon 
+                IsSignIn={false}
+            />
         )
 
         expect(accountIcon).toBeTruthy();

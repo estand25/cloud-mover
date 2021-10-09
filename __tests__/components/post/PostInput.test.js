@@ -24,13 +24,6 @@ describe('Testing with positive param for PostInput', () => {
     } 
 
     it('render without crashing when closed', () => {
-        const [alert, setAlert] = useObjectState({
-            severity: 'error',
-            text: 'test1',
-            open: false
-        })
-
-        const [open, setOpen] = useState(false)
         const [post, setPost] = useObjectState(Object.assign({}, defaultPost))
 
         const addPost = () => {}
@@ -57,11 +50,39 @@ describe('Testing with positive param for PostInput', () => {
         const addPost = () => {}
         const updateState = (e, s, a) => {}
 
+        const setOpen = jest.fn()
+
         const postInput = render(
             <PostInput
                 classes={classes}
-                open={true}
-                setOpen={() => {}}
+                open={false}
+                setOpen={setOpen}
+                addPost={addPost}
+                value={post}
+                onChangeState={(e) => updateState(e, setPost, post)}                    
+                postInputText={'Post'}
+            />
+        )
+
+        expect(postInput).toBeTruthy();
+    })
+
+    it('render without crashing when Open', () => {
+        const post = {
+            text: "s",
+            title: "s"
+        }
+
+        const setPost = jest.fn()
+        const addPost = jest.fn()
+        const updateState = (e, s, a) => jest.fn()
+        const setOpen = jest.fn()
+
+        const postInput = render(
+            <PostInput
+                classes={classes}
+                open={null}
+                setOpen={setOpen}
                 addPost={addPost}
                 value={post}
                 onChangeState={(e) => updateState(e, setPost, post)}                    
