@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react'
-import { useStorage, useFirestore, useUser } from "reactfire";
+import React, { useState } from 'react'
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -12,8 +11,7 @@ import {
     updateState, 
     updateAlert, 
     uploadImage,
-    updateProfileInfo,
-    profileUseEffect
+    updateProfileInfo
 } from '../utilies'
 
 import {
@@ -23,34 +21,37 @@ import {
 import PostForm from '../components/post/PostForm'
 
 import {
-    defaultProfile,
     defaultAlert
 } from '../constant'
 
+import useProfile from '../hooks/useProfile';
+
 const Profile = () => {
     const classes = useStyles();
-    const storage = useStorage();
-    const firestore = useFirestore();
-    const user = useUser();
 
-    const [fileName, setFileName] = useState({})
-    const [preview, setPreview] = useState('')
+    const { 
+        isLoading, 
+        list, 
+        user, 
+        signInCheckResult,
+        profile, 
+        setProfile,
+        preview, 
+        setPreview, 
+        firestore,
+        storage,
+        reset,
+        setReset,
+        fileName, 
+        setFileName,
+        alert, 
+        setAlert
+    } = useProfile()
 
-    const [profile, setProfile] = useState(defaultProfile)
-    const [alert, setAlert] = useState(defaultAlert)
-
-    const errorMessage = {
-        displayName: 'Display name is required'
-    }
-    
-    useEffect(() => {
-        profileUseEffect(firestore, user, profile, setProfile, setPreview)
-    }, [user.data])
-
-    if(!profile.email){
+    if(isLoading){
         return <CircularProgress color="inherit" />
     }
-
+    
     return (
         <div style={{margin: '1px', padding:'5px'}}>
             <Grid container spacing={3}>
@@ -65,20 +66,21 @@ const Profile = () => {
                                 classes={classes}
                                 alert={alert}
                                 onHandleClose={() => {
-                                    updateAlert(null, null, !alert.open, alert, setAlert)
+                                    updateAlert(null, null, !alert?.open, alert, setAlert)
                                 }}
                             />
                             <ProfileUser
                                 classes={classes}
-                                signInCheckResult={(user.data)}
+                                signInCheckResult={signInCheckResult}
                                 value={profile}
                                 onChangeState={(e) => updateState(e, setProfile, profile)}
                                 onChangeImage={(e) => uploadImage(e, setFileName, setPreview)}
                                 file={fileName}
                                 previewImageUrl={preview}
                                 onSubmit={() => {
-                                    updateProfileInfo(firestore, storage, user.data, profile, fileName, alert, setAlert)
+                                    updateProfileInfo(firestore, storage, user?.data, profile, fileName, alert, setAlert)
                                 }}
+                                isLoading={isLoading}
                             />
                         </CardLayoutWithMedia>
                     </Paper>
@@ -89,6 +91,10 @@ const Profile = () => {
                     user={user}
                     alert={alert}
                     setAlert={setAlert}
+                    list={list}
+                    setReset={setReset}
+                    reset={reset}
+                    isLoading={isLoading}
                 />
             </Grid>
     </div>

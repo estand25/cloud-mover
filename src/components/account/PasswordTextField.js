@@ -27,6 +27,7 @@ const PasswordTextField = ({classes, label, value, showPassword, onChange, onCha
             </InputLabel>
             <OutlinedInput
                 id="outlined-password"
+                data-testid="outlined-password"
                 type={showPassword ? 'text' : 'password'}
                 value={value}
                 name="password"
@@ -34,6 +35,7 @@ const PasswordTextField = ({classes, label, value, showPassword, onChange, onCha
                 endAdornment={
                     <InputAdornment position="end">
                     <IconButton
+                        id="password-eye-icon"
                         aria-label="toggle password visibility"
                         onClick={onChangeShowPassword}
                         onMouseDown={onChangeMouseShowPassword}

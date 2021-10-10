@@ -13,6 +13,7 @@ const UploadPhotoButton = ({classes, onChange}) => {
                 <OutlinedInput
                     style={{ display: "none" }}
                     id="upload-photo"
+                    data-testid="upload-photo"
                     name="upload-photo"
                     variant="outlined"
                     type="file"
@@ -24,6 +25,9 @@ const UploadPhotoButton = ({classes, onChange}) => {
                     component="span"
                     aria-label="add"
                     variant="extended"
+                    id="upload-btn-photo"
+                    name="upload-btn-photo"
+                    data-testid="upload-btn-photo"
                 >
                     <AddIcon /> Upload photo
                 </Fab>

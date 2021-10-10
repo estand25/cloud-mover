@@ -1,23 +1,13 @@
-import React, { useEffect, useState} from 'react'
-
+import React from 'react'
 import Post from './Post'
-
 import {Grid} from '@material-ui/core';
 
 import { 
-    updateState,
-    postsUseEffect
+    updateState
 } from '../../utilies'
 
-const Posts = ({classes, firestore, user, alert, setAlert}) => {
-    const [list, setList] = useState([])
-
-    useEffect(() => {
-        postsUseEffect(firestore, user, setList)
-    },[user.data, list])
-
-
-    if(list.length == 0){
+const Posts = ({classes, firestore, user, alert, setAlert, list, isLoading}) => {
+    if(isLoading){
         return (
             <div>
                 {'No Posts'}
@@ -32,10 +22,10 @@ const Posts = ({classes, firestore, user, alert, setAlert}) => {
             justifyContent="center"
             alignItems="center"
         >   
-            {list.map(item => { 
+            {list?.map(item => { 
                 return (
                     <Post
-                        key={item.id}
+                        key={item?.id}
                         classes={classes}
                         firestore={firestore}
                         user={user}

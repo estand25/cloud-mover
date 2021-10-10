@@ -46,7 +46,11 @@ const SignUpUser = ({classes, onChangeState, value, onChangeShowPassword, onChan
                         onChangeMouseShowPassword={onChangeMouseShowPassword}
                     />
                 </div>
-                <Button variant="outlined" onClick={onSubmit}>
+                <Button 
+                    id="SignUpBtn"
+                    variant="outlined" 
+                    onClick={onSubmit}
+                >
                     Sign-Up
                 </Button>
             </div>

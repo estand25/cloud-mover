@@ -46,6 +46,7 @@ describe('Testing with positive param for PostForm', () => {
             data: {}
         }
 
+        const list = []
         const firestore = reactFire.useFirestore()
 
         const postForm = render(
@@ -55,6 +56,7 @@ describe('Testing with positive param for PostForm', () => {
                 user={user}
                 alert={alert}
                 setAlert={setAlert}
+                list={list}
             />
         )
 

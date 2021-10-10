@@ -18,7 +18,8 @@ const NavBarAvatar = () => {
     const handleClose = () => setAnchorEl(null);
 
     useEffect(() => {
-      setIsSignIn(user)
+      if(user.data != null)
+        setIsSignIn(user)
     },[user.data])
     
     const onMenuHandler = (rte) => {
@@ -28,7 +29,13 @@ const NavBarAvatar = () => {
 
     const MenuOptionGeneration = ({list}) => {
       return list.map(item => {
-        return <MuiMenuItem key={item.label} onClick={item.onClickHandle}>{item.label}</MuiMenuItem>
+        var id = item.label;
+        if(id.includes('-')){
+          id = id.toLowerCase();
+        } else {
+          id = id.replace(' ', '-').toLowerCase();
+        }
+        return <MuiMenuItem id={id} key={item.label} onClick={item.onClickHandle}>{item.label}</MuiMenuItem>
       });
     }
 
@@ -59,6 +66,7 @@ const NavBarAvatar = () => {
           onClick={layout.method}
         >
           <AccountIcon
+            id="accountIcon"
             IsSignIn={IsSignIn}
             user={IsSignIn ? user?.data : {}}
           />

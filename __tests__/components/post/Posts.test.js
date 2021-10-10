@@ -87,6 +87,7 @@ describe('Testing with positive param for posts', () => {
             }
         }
 
+        const list = []
         const posts = render(
             <Posts
                 classes={classes}
@@ -94,6 +95,7 @@ describe('Testing with positive param for posts', () => {
                 user={user}
                 alert={alert}
                 setAlert={setAlert}
+                list={list}
             />
         )
 

@@ -22,6 +22,7 @@ const PostInput = ({classes, open, setOpen, addPost, value, onChangeState, postI
                         :
                             <div>
                                 <IconButton
+                                    data-testid="outlined-Icon-btn"
                                     onClick={() => setOpen(!open)}
                                 >
                                     <CloseIcon/>
@@ -31,6 +32,7 @@ const PostInput = ({classes, open, setOpen, addPost, value, onChangeState, postI
                     <div>
                         <TextField
                             id="outlined-Title"
+                            data-testid="outlined-Title"
                             label="Title"
                             name="title"
                             value={value.title}
@@ -44,6 +46,7 @@ const PostInput = ({classes, open, setOpen, addPost, value, onChangeState, postI
                     <div>
                         <TextField
                             id="outlined-Post"
+                            data-testid="outlined-Post"
                             label="Post"
                             name="text"
                             multiline
@@ -57,7 +60,11 @@ const PostInput = ({classes, open, setOpen, addPost, value, onChangeState, postI
                         />
                     </div>
                     <div>
-                        <Button variant="outlined" onClick={addPost}>
+                        <Button 
+                            data-testid="outlined-PostInput-btn"
+                            variant="outlined" 
+                            onClick={addPost}
+                        >
                             {postInputText}
                         </Button>
                     </div>

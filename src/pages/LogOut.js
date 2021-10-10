@@ -8,6 +8,10 @@ import { useHistory } from 'react-router-dom'
 import { CardLayout } from "../components/general";
 import { useStyles } from '../styles';
 
+import {
+    routeHome
+} from '../utilies'
+
 const LogOut = () => {
     const classes = useStyles();
     const auth = useAuth()
@@ -15,7 +19,12 @@ const LogOut = () => {
 
     const onLogOut = () => {
         signOut(auth)
-        history.push('/')
+
+        const alert = {
+            severity: 'success'
+        }
+        
+        routeHome(alert, history)
     }
 
     return (

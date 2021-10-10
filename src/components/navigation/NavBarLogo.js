@@ -5,6 +5,8 @@ import CloudIcon from '@material-ui/icons/Cloud';
 const NavBarLogo = ({onHome}) => {
     return (
         <IconButton
+          id="nav-icon-btn"
+          data-testid="nav-icon-btn"
           name='home'
           edge="start"
           color="inherit"

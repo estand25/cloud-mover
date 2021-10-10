@@ -8,6 +8,7 @@ const LogOutUser = ({classes, onLogOut}) => {
     return (
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
             <Button 
+                id="logOutBtn"
                 onClick={onLogOut}
                 variant="outlined"
             >

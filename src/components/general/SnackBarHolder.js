@@ -5,8 +5,17 @@ import { Alert } from '.'
 const SnackBarHolder  = ({classes, alert, onHandleClose}) => {
     return (
         <div className={classes.snackbar}>
-            <Snackbar open={alert?.open} autoHideDuration={6000} onClose={onHandleClose}>
-                <Alert onClose={onHandleClose} severity={alert?.severity}>
+            <Snackbar 
+                open={alert?.open} 
+                autoHideDuration={6000} 
+                onClose={onHandleClose}
+                id="snackbar"
+                data-testid="snackbar"
+            >
+                <Alert 
+                    onClose={onHandleClose} 
+                    severity={alert?.severity}
+                >
                     {alert?.text}
                 </Alert>
             </Snackbar>

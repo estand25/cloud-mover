@@ -505,7 +505,7 @@ const onFavoriteChange = (firestore, id, favorite, alert, setAlert) => {
     }
 }
 
-const accountUseEffect = (firestore, user, account, setAccount) => {
+const accountUseEffect = (firestore, user, account, setAccount, setIsLoading) => {
     if(user.data){
         const userRef = doc(firestore, 'users', user?.data?.uid)
 
@@ -518,6 +518,7 @@ const accountUseEffect = (firestore, user, account, setAccount) => {
                 updAccount.uid = result?.data()?.uid ?? '';
 
                 setAccount({...account,...updAccount})
+                setIsLoading(false)
             })
             .catch(error => {
                 console.log('UseEffect Account Error', error)
@@ -537,7 +538,7 @@ const profileUseEffect = (firestore, user, profile, setProfile, setPreview) => {
             ...profile,
             ...updProfile
         })
-
+        
         const profileRef = doc(firestore, 'profiles', user?.data?.uid)
 
         getDoc(profileRef)
@@ -574,12 +575,13 @@ const postsUseEffect = (firestore, user, setList) => {
         var newList = []
         getDocs(postQuery)
             .then(doc_ => {
+
                 doc_.forEach((iDoc) => {
                     var newPost = iDoc.data();
                     newPost.id = iDoc.id;
                     newList.push(newPost)
-                    // console.log('post',newPost )
                 })
+
                 setList(newList)
             })
     }

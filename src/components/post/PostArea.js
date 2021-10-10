@@ -17,7 +17,11 @@ const PostArea = ({ classes, open, setOpen, addPost, value, onChangeState }) => 
                 />
             :
                 <div>
-                    <Button variant="outlined" onClick={setOpen}>
+                    <Button 
+                        data-testid="outline-SetOpen"
+                        variant="outlined" 
+                        onClick={setOpen}
+                    >
                         Post
                     </Button>
                 </div>

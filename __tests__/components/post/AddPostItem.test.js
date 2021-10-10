@@ -1,7 +1,7 @@
-import React from 'react'
 import { render } from '@testing-library/react'
 import { AddPostItem } from '../../../src/components/post'
 import * as reactFire from 'reactfire'
+import * as React from 'react'
 
 jest.mock("reactfire", () => {
     return {
@@ -18,20 +18,10 @@ describe('Testing with positive param', () => {
         textFieldPhoto: {}
     }
 
-    const useObjectState = (defaultValue) => {
-        let value = Object.assign(defaultValue,{})
-        const getValue = value
-        const setValue = newValue => value = newValue
-        return [getValue, setValue];
-    }
-
     it('render without crashing', () => {
-        const [alert, setAlert] = useObjectState({
-            severity: 'error',
-            text: 'test1',
-            open: false
-        })
-
+        const setAlert = jest.fn();
+        const useAlertSpy = jest.spyOn(React, 'useState')
+        useAlertSpy.mockImplementation((alert) => [alert, setAlert]);
         const firestore = reactFire.useFirestore();
 
         const addPostItem = render(
@@ -44,5 +34,10 @@ describe('Testing with positive param', () => {
         )
 
         expect(addPostItem).toBeTruthy();
+        expect(setAlert).toBeTruthy();
     })
 })
+
+// describe('Testing with AddPostItem Interaction', () => {
+//     it('')
+// })

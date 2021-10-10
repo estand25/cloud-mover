@@ -11,7 +11,7 @@ import {
     defaultPost
 } from '../../constant'
 
-const AddPostItem = ({classes, firestore, user, alert, setAlert}) => {
+const AddPostItem = ({classes, firestore, user, alert, setAlert, setReset, reset}) => {
     const [open, setOpen] = useState(true)
     const [post, setPost] = useState(Object.assign({}, defaultPost))
 
@@ -23,6 +23,7 @@ const AddPostItem = ({classes, firestore, user, alert, setAlert}) => {
             addPost={() => {
                 createPost(firestore, user, setOpen, post, setPost, alert, setAlert)
                 setOpen(false)
+                setReset(!reset)
             }}
             onChangeState={(e) => updateState(e, setPost, post)}
             value={post}

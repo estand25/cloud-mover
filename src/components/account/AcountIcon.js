@@ -3,13 +3,23 @@ import Avatar from '@material-ui/core/Avatar';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const AccountIcon = ({IsSignIn, user}) => {
-    
     if(!IsSignIn){
-        return <AccountCircle style={{ fontSize: 40 }}/>
+        return (
+            <AccountCircle 
+                id="accountCircleId"
+                style={{ fontSize: 40 }}
+            />
+        )
     }
     else
     {
-        return <Avatar alt={user?.displayName} src={user?.photoURL} />
+        return (
+            <Avatar 
+                id="avatarId"
+                alt={user?.displayName} 
+                src={user?.photoURL} 
+            />
+        )
     }
 }
 

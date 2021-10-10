@@ -101,7 +101,6 @@ jest.mock("firebase/storage", () => {
 })
  
 describe('Testing utility function', () => {  
-
     const useState = (defaultValue) => {
         let value = defaultValue;
         const getValue = value

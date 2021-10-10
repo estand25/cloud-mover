@@ -11,6 +11,7 @@ const LogInUser = ({classes, value, onChange, onChangeShowPassword, onChangeMous
             <div>
                 <TextField
                     id="outlined-email"
+                    data-testid="outlined-email"
                     required
                     label={"Email"}
                     name={"email"}
@@ -33,6 +34,7 @@ const LogInUser = ({classes, value, onChange, onChangeShowPassword, onChangeMous
                 />
             </div>
             <Button
+                id="logInBtn"
                 onClick={onLogIn}
                 variant="outlined"
             >

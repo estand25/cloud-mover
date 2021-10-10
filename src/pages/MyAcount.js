@@ -1,18 +1,24 @@
-import React, { useState, useEffect} from 'react'
-import { useStorage, useFirestore, useAuth, useUser } from 'reactfire'
+import React, { useState } from 'react'
 
-import { AccountInfo } from '../components/account';
-import { CardLayout, SnackBarHolder } from '../components/general';
+import { 
+    AccountInfo 
+} from '../components/account';
 
-import { useHistory } from 'react-router';
+import { 
+    CardLayout, 
+    SnackBarHolder 
+} from '../components/general';
+
+import { 
+    useHistory 
+} from 'react-router';
 
 import { 
     updateState, 
     updateAlert, 
     routeHome,
     accountUpdated,
-    accountDelete,
-    accountUseEffect
+    accountDelete
 } from '../utilies'
 
 import {
@@ -20,24 +26,25 @@ import {
 } from '../styles'
 
 import {
-    defaultMyAccount,
     defaultAlert
 } from '../constant'
 
+import useMyAccount from '../hooks/useMyAccount';
+
 const MyAccount = () => {
     const classes = useStyles();
-    const firestore = useFirestore();
-    const storage = useStorage();
-    const auth = useAuth();
     const history = useHistory();
-    const user = useUser()
-    
-    const [account, setAccount] = useState(defaultMyAccount)
+
     const [alert, setAlert] = useState(defaultAlert)
 
-    useEffect(() => {   
-        accountUseEffect(firestore, user, account, setAccount)     
-    }, [user.data])
+    const {
+        isLoading, 
+        account, 
+        setAccount, 
+        firestore,
+        storage, 
+        auth
+    } = useMyAccount()
 
     return (
         <CardLayout
@@ -54,6 +61,7 @@ const MyAccount = () => {
             <AccountInfo
                 classes={classes}
                 value={account}
+                isLoading={isLoading}
                 onChangeState={(e) => updateState(e, setAccount, account)}
                 onChangeAccount={() => {
                     accountUpdated(firestore, account, alert, setAlert)

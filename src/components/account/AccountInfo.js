@@ -1,47 +1,36 @@
 import React from 'react'
 
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import FieldText from '../general/FieldText';
+import FieldTextReadOnly from '../general/FieldTextReadOnly';
 
-const AccountInfo = ({classes, value, onChangeState, onChangeAccount, onDeleteAccount}) => {
+const AccountInfo = ({classes, value, onChangeState, onChangeAccount, onDeleteAccount, isLoading}) => {
     return (
         <form className={classes.root} autoComplete="off">
             <div>
-                <TextField
-                    id="outline-name"
-                    required
+                <FieldText
+                    value={value?.name}
+                    onChangeState={onChangeState}
                     name="name"
                     label="Name"
-                    value={value.name}
-                    variant="outlined"
-                    onChange={onChangeState}
-                    error={!value.name}
-                    helperText={!value.name ? "Name is required" : ""}
+                    isLoading={isLoading}
                 />
             </div>
             <div>
-                <TextField
-                    id="outline-authProvider"
-                    required
+                <FieldText
+                    value={value?.authProvider}
+                    onChangeState={onChangeState}
                     name="authProvider"
                     label="Auth Provider"
-                    value={value.authProvider}
-                    variant="outlined"
-                    onChange={onChangeState}
-                    error={!value.authProvider}
-                    helperText={!value.authProvider ? "Auth Provider is required" : ""}
+                    isLoading={isLoading}
                 />
             </div>
             <div>
-                <TextField
-                    inputProps={{
-                        readOnly: true,
-                        disabled: true,
-                    }}
-                    id="outline-uid"
+                <FieldTextReadOnly
+                    value={value?.uid}
+                    name="uid"
                     label="Unique Id"
-                    value={value.uid}
-                    variant="outlined"
+                    isLoading={isLoading}
                 />
             </div>
             <div>
